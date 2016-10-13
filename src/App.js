@@ -8,6 +8,7 @@ class App extends Component {
     super();
 
     this.state = {
+      loading: false,
       interest: 0.05,
       price: {
         D: 400,
@@ -25,6 +26,8 @@ class App extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
 
+    this.setState({ loading: true });
+
     $.ajax({
       url: `http://l2.valeriivasin.com/crystals`,
       dataType: 'jsonp',
@@ -34,6 +37,7 @@ class App extends Component {
       },
     }).then(({ results }) => {
       this.setState({ items: results });
+      this.setState({ loading: false });
     });
   }
 
@@ -69,18 +73,21 @@ class App extends Component {
     });
 
     return (
-      <table className="table">
-        <tbody>
-          <tr>
-            <th>Name</th>
-            <th>Amount</th>
-            <th>cry pre item</th>
-            <th>cry total</th>
-            <th>Price (total)</th>
-          </tr>
-          {rows}
-        </tbody>
-      </table>
+      <div>
+        <h1>Details</h1>
+        <table className="table">
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>cry pre item</th>
+              <th>cry total</th>
+              <th>Price (total)</th>
+            </tr>
+            {rows}
+          </tbody>
+        </table>
+      </div>
     );
   }
 
@@ -130,16 +137,25 @@ class App extends Component {
     });
 
     return (
-      <table className="table">
-        <tbody>
-          {headers}
-          {rows}
-        </tbody>
-      </table>
+      <div>
+        <h1>Overview Table</h1>
+        <table className="table">
+          <tbody>
+            {headers}
+            {rows}
+          </tbody>
+        </table>
+      </div>
     );
   }
 
+
   render() {
+    const appContent = this.state.loading ? (<h1>Loading...</h1>) : [
+      this.renderOverviewTable(),
+      this.renderDetailsTable(),
+    ];
+
     return (
       <div className="App">
         <form onSubmit={this.handleFormSubmit}>
@@ -147,18 +163,11 @@ class App extends Component {
             value={this.state.inputText}
             onChange={this.handleInputChange}
             ref={node => this.input = node}
+            className="form-control"
             />
         </form>
 
-        <div className="overview-table">
-          <h1>Overview</h1>
-          {this.renderOverviewTable()}
-        </div>
-
-        <div className="details-table">
-          <h1>Details</h1>
-          {this.renderDetailsTable()}
-        </div>
+        {appContent}
       </div>
     );
   }
