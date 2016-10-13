@@ -136,9 +136,31 @@ class App extends Component {
       );
     });
 
+    const getStatusString = results => {
+      let totalPrice = 0;
+      let totalReturn = '';
+
+      const availableRanks = Object.keys(results);
+
+      availableRanks.forEach(rank => {
+        const rankPrice = this.state.price[rank];
+        const rankAmount = results[rank];
+        const returnAmount = Math.floor(rankAmount * (1 - this.state.interest));
+
+        totalPrice += rankPrice * rankAmount;
+        totalReturn += ` ${rank}x - ${returnAmount};`;
+      });
+
+      return <div>
+        <h5>Total price: {totalPrice}</h5>
+        <h5>Total return: {totalReturn.trim()}</h5>
+      </div>
+    };
+
     return (
       <div>
         <h1>Overview Table</h1>
+        {getStatusString(results)}
         <table className="table">
           <tbody>
             {headers}
