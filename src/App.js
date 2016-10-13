@@ -3,6 +3,25 @@
 import React, { Component } from 'react';
 import './App.css';
 
+function priceToString(price) {
+  const str = price.toString();
+  let result = '';
+
+  for (let i = str.length - 1, count = 0; i >= 0; i--) {
+
+    if (count === 3) {
+      result += ' ';
+      count = 0;
+    }
+
+    result += str.charAt(i);
+
+    count += 1;
+  }
+
+  return result.split('').reverse().join('').trim();
+}
+
 class App extends Component {
   constructor() {
     super();
@@ -73,7 +92,7 @@ class App extends Component {
     });
 
     return (
-      <div>
+      <div key='details'>
         <h1>Details</h1>
         <table className="table">
           <tbody>
@@ -152,13 +171,13 @@ class App extends Component {
       });
 
       return <div>
-        <h5>Total price: {totalPrice}</h5>
+        <h5>Total price: {priceToString(totalPrice)}</h5>
         <h5>Total return: {totalReturn.trim()}</h5>
       </div>
     };
 
     return (
-      <div>
+      <div key='overview'>
         <h1>Overview Table</h1>
         {getStatusString(results)}
         <table className="table">
