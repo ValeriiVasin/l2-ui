@@ -84,9 +84,9 @@ class App extends Component {
         <tr key={name}>
           <td>{name}</td>
           <td>{amount}</td>
-          <td>{cryAmount} {cryRank}x</td>
-          <td>{cryTotal} {cryRank}x</td>
-          <td>{priceTotal}</td>
+          <td>{cryRank}x {cryAmount}</td>
+          <td>{cryRank}x {cryTotal}</td>
+          <td>{priceToString(priceTotal)}</td>
         </tr>
       );
     });
@@ -148,9 +148,9 @@ class App extends Component {
         <tr key={rank}>
           <td>{rank}x</td>
           <td>{amount}</td>
-          <td>{price}</td>
-          <td>{price * amount}</td>
-          <td>{Math.floor((1 - this.state.interest) * amount)}</td>
+          <td>{priceToString(price)}</td>
+          <td>{priceToString(price * amount)}</td>
+          <td>{priceToString(Math.floor((1 - this.state.interest) * amount))}</td>
         </tr>
       );
     });
