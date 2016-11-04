@@ -31,7 +31,7 @@ class App extends Component {
       interest: 0.05,
       price: {
         D: 400,
-        C: 1650,
+        C: 1600,
       },
       inputText: '',
       items: [],
