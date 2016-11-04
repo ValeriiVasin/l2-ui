@@ -23,10 +23,16 @@ function priceToString(price) {
 }
 
 class App extends Component {
+
   constructor() {
     super();
 
-    this.state = {
+    this.storageKey = 'ui-app';
+
+    const storageValue = localStorage.getItem(this.storageKey);
+    const storageState = (storageValue && JSON.parse(storageValue)) || {};
+
+    this.state = Object.assign({
       loading: false,
       interest: 0.05,
       price: {
@@ -35,17 +41,22 @@ class App extends Component {
       },
       inputText: '',
       items: [],
-    };
+    }, storageState);
+  }
+
+  setStateAndSync = state =>  {
+    this.setState(state);
+    localStorage.setItem(this.storageKey, JSON.stringify(state));
   }
 
   handleInputChange = event => {
-    this.setState({ inputText: event.target.value });
+    this.setStateAndSync({ inputText: event.target.value });
   }
 
   handleFormSubmit = event => {
     event.preventDefault();
 
-    this.setState({ loading: true });
+    this.setStateAndSync({ loading: true });
 
     $.ajax({
       url: `http://l2.valeriivasin.com/crystals`,
@@ -55,8 +66,10 @@ class App extends Component {
         items: this.state.inputText,
       },
     }).then(({ results }) => {
-      this.setState({ items: results });
-      this.setState({ loading: false });
+      this.setStateAndSync({
+        items: results,
+        loading: false,
+      });
     });
   }
 
