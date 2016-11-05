@@ -3,6 +3,12 @@
 import React, { Component } from 'react';
 import './App.css';
 
+function interestAmount(amount, interest) {
+  return Math.ceil(amount * interest / 100);
+}
+
+const IS_ONLINE = false;
+
 function priceToString(price) {
   const str = price.toString();
   let result = '';
@@ -34,7 +40,7 @@ class App extends Component {
 
     this.state = Object.assign({
       loading: false,
-      interest: 0.05,
+      interest: 5,
       price: {
         D: 400,
         C: 1600,
@@ -45,8 +51,9 @@ class App extends Component {
   }
 
   setStateAndSync = state =>  {
+    const nextState = Object.assign({}, this.state, state);
     this.setState(state);
-    localStorage.setItem(this.storageKey, JSON.stringify(state));
+    localStorage.setItem(this.storageKey, JSON.stringify(nextState));
   }
 
   handleInputChange = event => {
@@ -58,19 +65,31 @@ class App extends Component {
 
     this.setStateAndSync({ loading: true });
 
-    $.ajax({
-      url: `http://l2.valeriivasin.com/crystals`,
-      dataType: 'jsonp',
-      data: {
-        format: 'jsonp',
-        items: this.state.inputText,
-      },
-    }).then(({ results }) => {
+    if (IS_ONLINE) {
+      return $.ajax({
+        url: `http://l2.valeriivasin.com/crystals`,
+        dataType: 'jsonp',
+        data: {
+          format: 'jsonp',
+          items: this.state.inputText.replace(/-{2}/g, ';'),
+        },
+      }).then(({ results }) => {
+        this.setStateAndSync({
+          items: results,
+          loading: false,
+        });
+      });
+    }
+
+    // fake response when not online
+    setTimeout(() => {
       this.setStateAndSync({
-        items: results,
+        items: [
+          { name: 'Тарбар', amount: 1, crystals: { rank: 'D', amount: 1758 } },
+        ],
         loading: false,
       });
-    });
+    }, 50);
   }
 
   componentDidMount() {
@@ -163,7 +182,7 @@ class App extends Component {
           <td>{amount}</td>
           <td>{priceToString(price)}</td>
           <td>{priceToString(price * amount)}</td>
-          <td>{priceToString(Math.floor((1 - this.state.interest) * amount))}</td>
+          <td>{priceToString(amount - interestAmount(amount, this.state.interest))}</td>
         </tr>
       );
     });
@@ -177,7 +196,7 @@ class App extends Component {
       availableRanks.forEach(rank => {
         const rankPrice = this.state.price[rank];
         const rankAmount = results[rank];
-        const returnAmount = Math.floor(rankAmount * (1 - this.state.interest));
+        const returnAmount = rankAmount - interestAmount(rankAmount, this.state.interest);
 
         totalPrice += rankPrice * rankAmount;
         totalReturn += ` ${rank}x - ${returnAmount};`;
@@ -203,9 +222,72 @@ class App extends Component {
     );
   }
 
+  handleDxPriceChange = event => {
+    const nextValue = Number(event.target.value) || 0;
+    const nextPrices = Object.assign({}, this.state.price, { D: nextValue });
+
+    this.setStateAndSync({ price: nextPrices });
+  }
+
+  handleCxPriceChange = event => {
+    const nextValue = Number(event.target.value) || 0;
+    const nextPrices = Object.assign({}, this.state.price, { C: nextValue });
+
+    this.setStateAndSync({ price: nextPrices });
+  }
+
+  handleInterestChange = event => {
+    const nextValue = Number(event.target.value) || 0;
+    this.setStateAndSync({ interest: nextValue });
+  }
+
+  renderControls = () => {
+    const dxPrice = this.state.price.D;
+    const cxPrice = this.state.price.C;
+    const interest = this.state.interest;
+
+    return <form className="form-inline" key="controls" style={{ marginTop: 30 }}>
+      <div className="form-group" style={{ width: 200, marginRight: 30 }}>
+        <div className="input-group">
+          <input
+            className="form-control"
+            placeholder="Dx price"
+            value={dxPrice}
+            onChange={this.handleDxPriceChange}
+            />
+          <div className="input-group-addon">Dx</div>
+        </div>
+      </div>
+
+      <div className="form-group" style={{ width: 200, marginRight: 30 }}>
+        <div className="input-group">
+          <input
+            className="form-control"
+            placeholder="Cx price"
+            value={cxPrice}
+            onChange={this.handleCxPriceChange}
+            />
+          <div className="input-group-addon">Cx</div>
+        </div>
+      </div>
+
+      <div className="form-group" style={{ width: 200, marginRight: 30 }}>
+        <div className="input-group">
+          <input
+            className="form-control"
+            placeholder="interest percentage"
+            value={interest}
+            onChange={this.handleInterestChange}
+            />
+          <div className="input-group-addon">%</div>
+        </div>
+      </div>
+    </form>;
+  }
 
   render() {
     const appContent = this.state.loading ? (<h1>Loading...</h1>) : [
+      this.renderControls(),
       this.renderOverviewTable(),
       this.renderDetailsTable(),
     ];
