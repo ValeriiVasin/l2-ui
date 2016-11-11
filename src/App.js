@@ -7,7 +7,7 @@ function interestAmount(amount, interest) {
   return Math.ceil(amount * interest / 100);
 }
 
-const IS_ONLINE = false;
+const IS_ONLINE = true;
 
 function priceToString(price) {
   const str = price.toString();
