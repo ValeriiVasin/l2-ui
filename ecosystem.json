@@ -1,10 +1,12 @@
 {
   "deploy": {
-    "user": "root",
-    "host": ["valeriivasin.com"],
-    "repo": "git@bitbucket.org:valeriivasin/l2-proxy-ui.git",
-    "ref": "origin/master",
-    "path": "/var/www/l2-proxy-ui",
-    "post-deploy": "npm install && npm run build"
+    "production": {
+      "user": "root",
+      "host": ["valeriivasin.com"],
+      "repo": "git@bitbucket.org:valeriivasin/l2-proxy-ui.git",
+      "ref": "origin/master",
+      "path": "/var/www/l2-proxy-ui",
+      "post-deploy": "npm install && npm run build"
+    }
   }
 }
