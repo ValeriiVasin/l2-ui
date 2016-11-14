@@ -5,6 +5,6 @@ import { MarketApp } from './MarketApp';
 import './index.css';
 
 ReactDOM.render(
-  <App />,
+  location.hash === '#market' ? <MarketApp /> : <App />,
   document.getElementById('root')
 );
