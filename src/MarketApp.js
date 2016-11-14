@@ -39,7 +39,7 @@ const MonitoringItem = ({ item }) => {
 
   return <div className="row">
     <h4>
-      <a href={`http://l2on.net/en/?c=market&a=item&id=${item.id}`} target="_blank">{item.name}</a>
+      <a href={`http://l2on.net/?c=market&a=item&id=${item.id}`} target="_blank">{item.name}</a>
     </h4>
     <div className="row">
       <div className="col-xs-6">
