@@ -37,17 +37,22 @@ const MonitoringItem = ({ item }) => {
   const sells = item.sell.filter(price => price.fresh).sort((a, b) => a.price - b.price);
   const buys = item.buy.filter(price => price.fresh).sort((a, b) => b.price - a.price);
 
+  const sellsTable = buys.length ?
+                    <PriceTable prices={sells} limit={3} /> :
+                    <h6>No active sellers found</h6>;
+
+  const buysTable = buys.length ?
+                    <PriceTable prices={buys} limit={3} /> :
+                    <h6>No active buyers found</h6>;
+
+
   return <div className="row">
     <h4>
       <a href={`http://l2on.net/?c=market&a=item&id=${item.id}`} target="_blank">{item.name}</a>
     </h4>
     <div className="row">
-      <div className="col-xs-6">
-        <PriceTable prices={sells} limit={3} />
-      </div>
-      <div className="col-xs-6">
-        <PriceTable prices={buys} limit={3} />
-      </div>
+      <div className="col-xs-6">{sellsTable}</div>
+      <div className="col-xs-6">{buysTable}</div>
     </div>
   </div>;
 };
