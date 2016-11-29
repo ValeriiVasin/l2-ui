@@ -13,6 +13,22 @@ const config = {
 
 firebase.initializeApp(config);
 
+function medianPrice(prices) {
+  if (prices.length === 0) {
+    return 'N/A';
+  }
+
+  const values = prices.map(price => price.price).sort((a, b) => a - b);
+  const midIndex = Math.floor(values.length / 2);
+
+  // non-odd
+  if (values.length % 2) {
+    return values[midIndex];
+  }
+
+  return Math.round((values[midIndex] + values[midIndex - 1]) / 2);
+}
+
 const PriceRow = ({ price, amount, time }) => <tr>
   <td>{price}</td>
   <td>{amount}</td>
@@ -46,10 +62,16 @@ const MonitoringItem = ({ item }) => {
                     <h6>No active buyers found</h6>;
 
 
-  return <div className="row">
+  return <div className="row" style={{ marginBottom: 30 }}>
     <h4>
       <a href={`http://l2on.net/?c=market&a=item&id=${item.id}`} target="_blank">{item.name}</a>
     </h4>
+
+    <div className="row">
+      <div className="col-xs-6">Median: {medianPrice(item.sell)} ({item.sell.length})</div>
+      <div className="col-xs-6">Median: {medianPrice(item.buy)} ({item.buy.length})</div>
+    </div>
+
     <div className="row">
       <div className="col-xs-6">{sellsTable}</div>
       <div className="col-xs-6">{buysTable}</div>
