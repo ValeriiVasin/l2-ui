@@ -29,11 +29,17 @@ function medianPrice(prices) {
   return Math.round((values[midIndex] + values[midIndex - 1]) / 2);
 }
 
-const PriceRow = ({ price, amount, time }) => <tr>
-  <td>{price}</td>
-  <td>{amount}</td>
-  <td>{new Date(time).toString()}</td>
-</tr>;
+const PriceRow = ({ price, amount, time }) => {
+  const minsAgo = Math.ceil(
+    (Date.now() - new Date(time).getTime()) / (60 * 1000)
+  );
+
+  return <tr>
+    <td>{price}</td>
+    <td>{amount}</td>
+    <td>{minsAgo} min</td>
+  </tr>;
+};
 
 const PriceTable = ({ prices, limit }) => <table className="table">
   <tbody>
@@ -61,6 +67,8 @@ const MonitoringItem = ({ item }) => {
                     <PriceTable prices={buys} limit={3} /> :
                     <h6>No active buyers found</h6>;
 
+  const medianSellPrice = medianPrice(item.sell);
+  const medianBuyPrice = medianPrice(item.buy);
 
   return <div className="row" style={{ marginBottom: 30 }}>
     <div className="row">
@@ -73,8 +81,8 @@ const MonitoringItem = ({ item }) => {
     </div>
 
     <div className="row">
-      <div className="col-xs-6">Median: {medianPrice(item.sell)} ({item.sell.length})</div>
-      <div className="col-xs-6">Median: {medianPrice(item.buy)} ({item.buy.length})</div>
+      <div className="col-xs-6">Median: {medianSellPrice} ({item.sell.length})</div>
+      <div className="col-xs-6">Median: {medianBuyPrice} ({item.buy.length})</div>
     </div>
 
     <div className="row">
