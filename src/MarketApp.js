@@ -63,9 +63,14 @@ const MonitoringItem = ({ item }) => {
 
 
   return <div className="row" style={{ marginBottom: 30 }}>
-    <h4>
-      <a href={`http://l2on.net/?c=market&a=item&id=${item.id}`} target="_blank">{item.name}</a>
-    </h4>
+    <div className="row">
+      <h4 style={{ display: 'inline-block', marginRight: 10 }}>
+        <a href={`http://l2on.net/?c=market&a=item&id=${item.id}`} target="_blank">{item.name}</a>
+      </h4>
+      <a href={`https://l2central.info/classic/${item.name}`} target="_blank">
+        <small>central</small>
+      </a>
+    </div>
 
     <div className="row">
       <div className="col-xs-6">Median: {medianPrice(item.sell)} ({item.sell.length})</div>
