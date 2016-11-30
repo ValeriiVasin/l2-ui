@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function interestAmount(amount, interest) {
   return Math.ceil(amount * interest / 100);
