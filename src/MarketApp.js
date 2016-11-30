@@ -94,9 +94,20 @@ export class MarketApp extends Component {
   }
 
   componentDidMount() {
+    let lsItems;
+
+    try {
+      lsItems = JSON.parse(localStorage.getItem('l2onPrices'));
+    } catch (e) { /** nothing */ }
+
+    this.setState({ items: lsItems || {} });
+
     firebase.database().ref('/l2on/currentPrices')
       .on('value', snapshot => {
-        this.setState({ items: snapshot.val() });
+        const items = snapshot.val();
+        this.setState({ items });
+
+        localStorage.setItem('l2onPrices', JSON.stringify(items));
       });
   }
 
