@@ -29,30 +29,45 @@ function medianPrice(prices) {
   return Math.round((values[midIndex] + values[midIndex - 1]) / 2);
 }
 
-const PriceRow = ({ price, amount, time }) => {
+const PriceRow = ({ price, amount, time, isHighlighted = false }) => {
   const minsAgo = Math.ceil(
     (Date.now() - new Date(time).getTime()) / (60 * 1000)
   );
 
-  return <tr>
+  const highlightedStyle = { backgroundColor: 'green', color: 'white' };
+
+  return <tr style={ isHighlighted ? highlightedStyle : {} }>
     <td>{price}</td>
     <td>{amount}</td>
     <td>{minsAgo} min</td>
   </tr>;
 };
 
-const PriceTable = ({ prices, limit }) => <table className="table">
-  <tbody>
-    {
-      prices.slice(0, limit ? limit : prices.length - 1).map((price, index) => <PriceRow
-        key={`${index}:${price.amount}:${price.price}`}
+const PriceTable = ({ prices, limit, type }) => {
+  const itemsLimit = limit ? limit : prices.length - 1;
+  const itemMedianPrices = medianPrice(prices);
+
+  const rows = prices
+    .slice(0, itemsLimit)
+    .map((price, index) => {
+      const key = `${index}:${price.amount}:${price.price}`;
+      const isHighlighted = type === 'sell' ?
+                            itemMedianPrices > price.price :
+                            itemMedianPrices < price.price;
+
+      return <PriceRow
+        key={key}
         price={price.price}
         amount={price.amount}
         time={price.time}
-      />)
-    }
-  </tbody>
-</table>;
+        isHighlighted={isHighlighted}
+      />;
+    });
+
+  return <table className="table">
+    <tbody>{rows}</tbody>
+  </table>;
+};
 
 /** One item monitoring */
 const MonitoringItem = ({ item }) => {
@@ -60,11 +75,11 @@ const MonitoringItem = ({ item }) => {
   const buys = item.buy.filter(price => price.fresh).sort((a, b) => b.price - a.price);
 
   const sellsTable = buys.length ?
-                    <PriceTable prices={sells} limit={3} /> :
+                    <PriceTable prices={sells} limit={3} type="sell" /> :
                     <h6>No active sellers found</h6>;
 
   const buysTable = buys.length ?
-                    <PriceTable prices={buys} limit={3} /> :
+                    <PriceTable prices={buys} limit={3} type="buy" /> :
                     <h6>No active buyers found</h6>;
 
   const medianSellPrice = medianPrice(item.sell);
