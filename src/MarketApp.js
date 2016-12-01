@@ -43,17 +43,14 @@ const PriceRow = ({ price, amount, time, isHighlighted = false }) => {
   </tr>;
 };
 
-const PriceTable = ({ prices, limit, type }) => {
+const PriceTable = ({ prices, limit, type, median }) => {
   const itemsLimit = limit ? limit : prices.length - 1;
-  const itemMedianPrices = medianPrice(prices);
 
   const rows = prices
     .slice(0, itemsLimit)
     .map((price, index) => {
       const key = `${index}:${price.amount}:${price.price}`;
-      const isHighlighted = type === 'sell' ?
-                            itemMedianPrices > price.price :
-                            itemMedianPrices < price.price;
+      const isHighlighted = type === 'sell' ? median > price.price : median < price.price;
 
       return <PriceRow
         key={key}
@@ -74,16 +71,17 @@ const MonitoringItem = ({ item }) => {
   const sells = item.sell.filter(price => price.fresh).sort((a, b) => a.price - b.price);
   const buys = item.buy.filter(price => price.fresh).sort((a, b) => b.price - a.price);
 
+  const medianSellPrice = medianPrice(item.sell);
+  const medianBuyPrice = medianPrice(item.buy);
+
   const sellsTable = buys.length ?
-                    <PriceTable prices={sells} limit={3} type="sell" /> :
+                    <PriceTable prices={sells} limit={3} type="sell" median={medianSellPrice} /> :
                     <h6>No active sellers found</h6>;
 
   const buysTable = buys.length ?
-                    <PriceTable prices={buys} limit={3} type="buy" /> :
+                    <PriceTable prices={buys} limit={3} type="buy" median={medianBuyPrice} /> :
                     <h6>No active buyers found</h6>;
 
-  const medianSellPrice = medianPrice(item.sell);
-  const medianBuyPrice = medianPrice(item.buy);
 
   return <div className="row" style={{ marginBottom: 30 }}>
     <div className="row">
