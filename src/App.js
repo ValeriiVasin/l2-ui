@@ -102,6 +102,8 @@ class App extends Component {
       return null;
     }
 
+    let totalItemsAmount = 0;
+
     const rows = this.state.items.map(item => {
       const cryRank = item.crystals.rank;
       const cryAmount = item.crystals.amount;
@@ -109,6 +111,8 @@ class App extends Component {
 
       const name = item.name;
       const amount = item.amount;
+
+      totalItemsAmount += amount;
 
       const cryTotal = cryAmount * amount;
       const priceTotal = cryPrice * cryTotal;
@@ -126,7 +130,7 @@ class App extends Component {
 
     return (
       <div key='details'>
-        <h1>Details</h1>
+        <h1>Details - {totalItemsAmount}</h1>
         <table className="table">
           <tbody>
             <tr>
