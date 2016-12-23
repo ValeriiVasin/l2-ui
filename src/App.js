@@ -119,6 +119,9 @@ class App extends Component {
 
       return (
         <tr key={name}>
+          <td width="64">
+            <img src={`http://l2.valeriivasin.com/image/${name}`} alt={name} />
+          </td>
           <td>{name}</td>
           <td>{amount}</td>
           <td>{cryRank}x {cryAmount}</td>
@@ -134,6 +137,7 @@ class App extends Component {
         <table className="table">
           <tbody>
             <tr>
+              <th>Image</th>
               <th>Name</th>
               <th>Amount</th>
               <th>cry pre item</th>
