@@ -120,13 +120,17 @@ class App extends Component {
       return (
         <tr key={name}>
           <td width="64">
-            <img src={`http://l2.valeriivasin.com/image/${name}`} alt={name} />
+            <a href={ 'https://l2central.info/classic/' + name } target="_blank">
+              <img src={`http://l2.valeriivasin.com/image/${name}`} alt={name} />
+            </a>
           </td>
-          <td>{name}</td>
-          <td>{amount}</td>
-          <td>{cryRank}x {cryAmount}</td>
-          <td>{cryRank}x {cryTotal}</td>
-          <td>{priceToString(priceTotal)}</td>
+          <td className="u-vertical-align-middle">
+            <a href={ 'https://l2central.info/classic/' + name } target="_blank">{name}</a>
+          </td>
+          <td className="u-vertical-align-middle">{amount}</td>
+          <td className="u-vertical-align-middle">{cryRank}x {cryAmount}</td>
+          <td className="u-vertical-align-middle">{cryRank}x {cryTotal}</td>
+          <td className="u-vertical-align-middle">{priceToString(priceTotal)}</td>
         </tr>
       );
     });
