@@ -8,6 +8,23 @@ import { priceToString, interestAmount } from './helpers';
 
 const IS_ONLINE = false;
 
+const PriceControl = ({ rank, price, onChange }) => {
+  const label = `${rank.toUpperCase()}x`;
+  const placeholder = `${label} price`;
+
+   return <div className="form-group" style={{ width: 200, marginRight: 30 }}>
+    <div className="input-group">
+      <input
+        className="form-control"
+        placeholder={placeholder}
+        value={price}
+        onChange={onChange}
+        />
+      <div className="input-group-addon">{label}</div>
+    </div>
+  </div>;
+};
+
 class App extends Component {
   constructor() {
     super();
@@ -247,41 +264,23 @@ class App extends Component {
     const interest = this.state.interest;
 
     return <form className="form-inline" key="controls" style={{ marginTop: 30 }}>
-      <div className="form-group" style={{ width: 200, marginRight: 30 }}>
-        <div className="input-group">
-          <input
-            className="form-control"
-            placeholder="Dx price"
-            value={dxPrice}
-            onChange={this.handleDxPriceChange}
-            />
-          <div className="input-group-addon">Dx</div>
-        </div>
-      </div>
+      <PriceControl
+        rank="D"
+        price={dxPrice}
+        onChange={this.handleDxPriceChange}
+        />
 
-      <div className="form-group" style={{ width: 200, marginRight: 30 }}>
-        <div className="input-group">
-          <input
-            className="form-control"
-            placeholder="Cx price"
-            value={cxPrice}
-            onChange={this.handleCxPriceChange}
-            />
-          <div className="input-group-addon">Cx</div>
-        </div>
-      </div>
+     <PriceControl
+      rank="C"
+      price={cxPrice}
+      onChange={this.handleCxPriceChange}
+      />
 
-      <div className="form-group" style={{ width: 200, marginRight: 30 }}>
-        <div className="input-group">
-          <input
-            className="form-control"
-            placeholder="Bx price"
-            value={bxPrice}
-            onChange={this.handleBxPriceChange}
-            />
-          <div className="input-group-addon">Bx</div>
-        </div>
-      </div>
+      <PriceControl
+        rank="B"
+        price={bxPrice}
+        onChange={this.handleBxPriceChange}
+        />
 
       <div className="form-group" style={{ width: 200, marginRight: 30 }}>
         <div className="input-group">
