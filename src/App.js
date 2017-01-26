@@ -4,33 +4,11 @@ import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-function interestAmount(amount, interest) {
-  return Math.ceil(amount * interest / 100);
-}
+import { priceToString, interestAmount } from './helpers';
 
-const IS_ONLINE = true;
-
-function priceToString(price) {
-  const str = price.toString();
-  let result = '';
-
-  for (let i = str.length - 1, count = 0; i >= 0; i--) {
-
-    if (count === 3) {
-      result += ' ';
-      count = 0;
-    }
-
-    result += str.charAt(i);
-
-    count += 1;
-  }
-
-  return result.split('').reverse().join('').trim();
-}
+const IS_ONLINE = false;
 
 class App extends Component {
-
   constructor() {
     super();
 
@@ -45,6 +23,7 @@ class App extends Component {
       price: {
         D: 400,
         C: 1600,
+        B: 3800,
       },
       inputText: '',
       items: [],
@@ -249,6 +228,13 @@ class App extends Component {
     this.setStateAndSync({ price: nextPrices });
   }
 
+  handleBxPriceChange = event => {
+    const nextValue = Number(event.target.value) || 0;
+    const nextPrices = Object.assign({}, this.state.price, { B: nextValue });
+
+    this.setStateAndSync({ price: nextPrices });
+  }
+
   handleInterestChange = event => {
     const nextValue = Number(event.target.value) || 0;
     this.setStateAndSync({ interest: nextValue });
@@ -257,6 +243,7 @@ class App extends Component {
   renderControls = () => {
     const dxPrice = this.state.price.D;
     const cxPrice = this.state.price.C;
+    const bxPrice = this.state.price.B;
     const interest = this.state.interest;
 
     return <form className="form-inline" key="controls" style={{ marginTop: 30 }}>
@@ -281,6 +268,18 @@ class App extends Component {
             onChange={this.handleCxPriceChange}
             />
           <div className="input-group-addon">Cx</div>
+        </div>
+      </div>
+
+      <div className="form-group" style={{ width: 200, marginRight: 30 }}>
+        <div className="input-group">
+          <input
+            className="form-control"
+            placeholder="Bx price"
+            value={bxPrice}
+            onChange={this.handleBxPriceChange}
+            />
+          <div className="input-group-addon">Bx</div>
         </div>
       </div>
 
