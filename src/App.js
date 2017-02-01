@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import { priceToString, interestAmount } from './helpers';
 
-const IS_ONLINE = false;
+const IS_ONLINE = true;
 
 const PriceControl = ({ rank, price, onChange }) => {
   const label = `${rank.toUpperCase()}x`;
