@@ -67,7 +67,7 @@ const PriceTable = ({ prices, limit, type, median }) => {
 };
 
 /** One item monitoring */
-const MonitoringItem = ({ item }) => {
+const MonitoringItem = ({ item, basePrice }) => {
   const sells = item.sell.filter(price => price.fresh).sort((a, b) => a.price - b.price);
   const buys = item.buy.filter(price => price.fresh).sort((a, b) => b.price - a.price);
 
@@ -82,6 +82,7 @@ const MonitoringItem = ({ item }) => {
                     <PriceTable prices={buys} limit={3} type="buy" median={medianBuyPrice} /> :
                     <h6>No active buyers found</h6>;
 
+  const basePriceTitle = `base price: ${basePrice}; sell to shop: ${basePrice * 0.45}`;
 
   return <div className="row" style={{ marginBottom: 30 }}>
     <div className="row">
@@ -91,6 +92,10 @@ const MonitoringItem = ({ item }) => {
       <a href={`https://l2central.info/classic/${item.name}`} target="_blank">
         <small>central</small>
       </a>
+      <span
+        style={{ display: 'inline-block', marginLeft: 10 }}
+        title={basePriceTitle}
+        >{ basePrice * 0.45 }</span>
     </div>
 
     <div className="row">
@@ -110,18 +115,22 @@ export class MarketApp extends Component {
     super();
 
     this.state = {
-      items: {}
+      items: {},
+      basePrices: {}
     };
   }
 
   componentDidMount() {
     let lsItems;
+    let lsBasePrices;
 
     try {
       lsItems = JSON.parse(localStorage.getItem('l2onPrices'));
+      lsBasePrices = JSON.parse(localStorage.getItem('basePrices'));
     } catch (e) { /** nothing */ }
 
     this.setState({ items: lsItems || {} });
+    this.setState({ basePrices: lsBasePrices || {} });
 
     firebase.database().ref('/l2on/currentPrices')
       .on('value', snapshot => {
@@ -129,6 +138,14 @@ export class MarketApp extends Component {
         this.setState({ items });
 
         localStorage.setItem('l2onPrices', JSON.stringify(items));
+      });
+
+    firebase.database().ref('/basePrices')
+      .on('value', snapshot => {
+        const prices = snapshot.val();
+
+        this.setState({ basePrices: prices });
+        localStorage.setItem('basePrices', JSON.stringify(prices));
       });
   }
 
@@ -139,7 +156,16 @@ export class MarketApp extends Component {
       return <h1>Hello on l2 market side!</h1>;
     }
 
-    const rows = ids.map(id => <MonitoringItem key={id} item={this.state.items[id]} />);
+    const rows = ids.map(id => {
+      const item = this.state.items[id];
+      const basePrice = this.state.basePrices[item.name];
+
+      return <MonitoringItem
+        key={id}
+        item={item}
+        basePrice={basePrice}
+        />;
+    });
 
     return <div className="container">{rows}</div>;
   }
