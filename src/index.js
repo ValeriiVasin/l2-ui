@@ -1,22 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import createLogger from 'redux-logger';
 
-import App from './App';
-import { MarketApp } from './MarketApp';
+import CrystalsApp from './App';
+import { MarketContainer } from './containers/market';
+
+import rootReducer from './reducers';
+
 import './index.css';
 
-const store = createStore(state => state);
+const logger = createLogger();
 
-const Application = ({ store }) => {
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk, logger)
+);
+
+const App = () => {
   const isMarket = location.hash === '#market';
 
   return (
     <Provider store={store}>
-      { isMarket ? <MarketApp /> : <App /> }
+      { isMarket ? <MarketContainer /> : <CrystalsApp />}
     </Provider>
   );
 };
 
-ReactDOM.render(<Application store={store} />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));

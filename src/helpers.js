@@ -20,3 +20,19 @@ export function priceToString(price) {
 export function interestAmount(amount, interest) {
   return Math.ceil(amount * interest / 100);
 }
+
+export function medianPrice(prices) {
+  if (prices.length === 0) {
+    return 'N/A';
+  }
+
+  const values = prices.map(price => price.price).sort((a, b) => a - b);
+  const midIndex = Math.floor(values.length / 2);
+
+  // non-odd
+  if (values.length % 2) {
+    return values[midIndex];
+  }
+
+  return Math.round((values[midIndex] + values[midIndex - 1]) / 2);
+}
