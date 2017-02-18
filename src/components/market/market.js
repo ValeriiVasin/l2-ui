@@ -9,14 +9,16 @@ export class Market extends Component {
   render() {
     const {
       items,
-      basePrices
+      basePrices,
+      loading
     } = this.props;
 
-    const ids = Object.keys(items);
 
-    if (ids.length === 0) {
+    if (loading) {
       return <h1>Loading...</h1>;
     }
+
+    const ids = Object.keys(items);
 
     const rows = ids.map(id => {
       const item = items[id];

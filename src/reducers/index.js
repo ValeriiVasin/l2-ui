@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
-import { market } from './market';
+
+import { firebase } from './firebase';
 
 export default combineReducers({
-  market,
+  firebase
 });
