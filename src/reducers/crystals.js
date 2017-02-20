@@ -28,11 +28,11 @@ export const crystals = (state = INITIAL_STATE, action) => {
   }
 
   if (action.type === CRYSTALS_TEXT_SET) {
-    return { ...state, text: action.text };
+    return { ...state, text: action.payload.text };
   }
 
   if (action.type === CRYSTALS_INTEREST_SET) {
-    return { ...state, interest: action.interest };
+    return { ...state, interest: action.payload.interest };
   }
 
   if (action.type === CRYSTALS_PRICE_SET) {
