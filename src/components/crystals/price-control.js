@@ -1,5 +1,11 @@
 import React from 'react';
 
+const normalizeOnChange = onChange => event => {
+  onChange(
+    Number(event.target.value.trim())
+  );
+};
+
 export const PriceControl = ({ rank, price, onChange }) => {
   const label = `${rank.toUpperCase()}x`;
   const placeholder = `${label} price`;
@@ -13,7 +19,7 @@ export const PriceControl = ({ rank, price, onChange }) => {
         className="form-control"
         placeholder={placeholder}
         value={price}
-        onChange={onChange}
+        onChange={normalizeOnChange(onChange)}
         />
       <div className="input-group-addon">{label}</div>
     </div>
