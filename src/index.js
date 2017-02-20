@@ -11,6 +11,7 @@ import { MarketContainer } from './containers/market';
 import rootReducer from './reducers';
 
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const logger = createLogger();
 

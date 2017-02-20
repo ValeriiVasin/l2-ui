@@ -1,9 +1,9 @@
 /** Control inputs */
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { PriceControl } from '../../components/crystals/price-control';
-import { setPrice, setInterest } from '../../actions/crystals';
+import { setPrice, setInterest, setText } from '../../actions/crystals';
 
 const createStateToProps = rank => state => {
   const price = state.crystals.price[rank];
@@ -59,12 +59,45 @@ const InterestControlContainer = connect(
   })
 )(InterestControl);
 
-export const Controls = () => {
-  return <form className="form-inline" key="controls" style={{ marginTop: 30 }}>
-    <DxPriceControl />
-    <CxPriceControl />
-    <BxPriceControl />
+class TextInputControl extends Component {
+  componentDidMount() {
+    this.input.focus();
+  }
 
-    <InterestControlContainer />
-  </form>;
+  render() {
+    const {
+      text,
+      onChange
+    } = this.props;
+
+    return <form onSubmit={this.handleFormSubmit}>
+      <input
+        value={text}
+        onChange={event => onChange(event.target.value)}
+        ref={node => this.input = node}
+        className="form-control"
+        />
+    </form>;
+  }
+}
+
+const TextInputContainer = connect(
+  state => ({ text: state.crystals.text }),
+  dispatch => ({
+    onChange: value => dispatch(setText(value))
+  })
+)(TextInputControl);
+
+export const Controls = () => {
+  return <div className="App">
+    <TextInputContainer />
+
+    <form className="form-inline" key="controls" style={{ marginTop: 30 }}>
+      <DxPriceControl />
+      <CxPriceControl />
+      <BxPriceControl />
+
+      <InterestControlContainer />
+    </form>
+  </div>;
 };

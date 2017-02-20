@@ -20,11 +20,11 @@ const INITIAL_STATE = {
 
 export const crystals = (state = INITIAL_STATE, action) => {
   if (action.type === CRYSTALS_ITEMS_SET) {
-    return { ...state, items: action.items };
+    return { ...state, items: action.payload.items };
   }
 
   if (action.type === CRYSTALS_LOADING_TOGGLE) {
-    return { ...state, loading: action.value };
+    return { ...state, loading: action.payload.value };
   }
 
   if (action.type === CRYSTALS_TEXT_SET) {
