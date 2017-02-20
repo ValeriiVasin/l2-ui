@@ -6,6 +6,8 @@ import { PriceControl } from './price-control';
 
 import { priceToString, interestAmount } from './helpers';
 
+import { DxPriceControl } from '../../containers/crystals/controls';
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 

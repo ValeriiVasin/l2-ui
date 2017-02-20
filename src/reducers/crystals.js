@@ -1,10 +1,9 @@
-import { combineReducers } from 'redux';
-
 import {
   CRYSTALS_LOADING_TOGGLE,
   CRYSTALS_ITEMS_SET,
   CRYSTALS_PRICE_SET,
   CRYSTALS_TEXT_SET,
+  CRYSTALS_INTEREST_SET
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -39,7 +38,7 @@ export const crystals = (state = INITIAL_STATE, action) => {
   if (action.type === CRYSTALS_PRICE_SET) {
     return {
       ...state,
-      price: { ...state.price, [action.rank]: action.price },
+      price: { ...state.price, [action.payload.rank]: action.payload.price },
     };
   }
 

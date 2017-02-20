@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 
-import CrystalsApp from './App';
+import CrystalsApp from './containers/crystals/crystals';
 import { MarketContainer } from './containers/market';
 
 import rootReducer from './reducers';
