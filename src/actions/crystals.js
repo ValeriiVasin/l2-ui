@@ -1,8 +1,17 @@
+/* global $ */
+
 import {
   CRYSTALS_PRICE_SET,
   CRYSTALS_INTEREST_SET,
   CRYSTALS_TEXT_SET,
+  CRYSTALS_LOADING_TOGGLE,
+  CRYSTALS_ITEMS_SET,
 } from './types';
+
+const toggleLoading = value => ({
+  type: CRYSTALS_LOADING_TOGGLE,
+  payload: { value },
+});
 
 export const setPrice = ({ rank, price }) => ({
   type: CRYSTALS_PRICE_SET,
@@ -19,4 +28,26 @@ export const setText = text => {
     type: CRYSTALS_TEXT_SET,
     payload: { text },
   };
+};
+
+const setItems = items => ({
+  type: CRYSTALS_ITEMS_SET,
+  payload: { items }
+});
+
+export const fetchItems = text => dispatch => {
+  dispatch(toggleLoading(true));
+
+  $.ajax({
+    url: `http://l2.valeriivasin.com/crystals`,
+    dataType: 'jsonp',
+    data: {
+      format: 'jsonp',
+      items: text.replace(/-{2}/g, ';')
+    }
+  }).then(({ results }) => {
+    console.log(results);
+    dispatch(setItems(results));
+    dispatch(toggleLoading(false));
+  });
 };

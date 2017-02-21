@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { PriceControl } from '../../components/crystals/price-control';
-import { setPrice, setInterest, setText } from '../../actions/crystals';
+import { setPrice, setInterest, setText, fetchItems } from '../../actions/crystals';
 
 const createStateToProps = rank => state => {
   const price = state.crystals.price[rank];
@@ -67,13 +67,23 @@ class TextInputControl extends Component {
   render() {
     const {
       text,
-      onChange
+      onChange,
+      onSubmit
     } = this.props;
 
-    return <form onSubmit={this.handleFormSubmit}>
+    const handleChange = event => {
+      onChange(event.target.value);
+    };
+
+    const handleSubmit = event => {
+      event.preventDefault();
+      onSubmit(this.input.value);
+    };
+
+    return <form onSubmit={handleSubmit}>
       <input
         value={text}
-        onChange={event => onChange(event.target.value)}
+        onChange={handleChange}
         ref={node => this.input = node}
         className="form-control"
         />
@@ -84,7 +94,8 @@ class TextInputControl extends Component {
 const TextInputContainer = connect(
   state => ({ text: state.crystals.text }),
   dispatch => ({
-    onChange: value => dispatch(setText(value))
+    onChange: text => dispatch(setText(text)),
+    onSubmit: text => dispatch(fetchItems(text))
   })
 )(TextInputControl);
 
