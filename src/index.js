@@ -8,6 +8,8 @@ import createLogger from 'redux-logger';
 import CrystalsApp from './containers/crystals/crystals';
 import { MarketContainer } from './containers/market';
 
+import CLIApp from './containers/cli';
+
 import rootReducer from './reducers';
 
 import './index.css';
@@ -22,10 +24,23 @@ const store = createStore(
 
 const App = () => {
   const isMarket = location.hash === '#market';
+  const isCLI = location.hash === '#cli';
+
+  const renderApp = () => {
+    if (isMarket) {
+      return <MarketContainer />;
+    }
+
+    if (isCLI) {
+      return <CLIApp />;
+    }
+
+    return <CrystalsApp />
+  }
 
   return (
     <Provider store={store}>
-      { isMarket ? <MarketContainer /> : <CrystalsApp />}
+      {renderApp()}
     </Provider>
   );
 };

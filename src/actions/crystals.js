@@ -46,7 +46,6 @@ export const fetchItems = text => dispatch => {
       items: text.replace(/-{2}/g, ';')
     }
   }).then(({ results }) => {
-    console.log(results);
     dispatch(setItems(results));
     dispatch(toggleLoading(false));
   });
