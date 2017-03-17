@@ -36,5 +36,8 @@ export const executeCommand = () => (dispatch, getState) => {
   }).then(({ response }) => {
     dispatch(setResult(response));
     dispatch(setLoading(false));
+  }).fail(error => {
+    dispatch(setResult(`Error occured: "${error.statusText}"`));
+    dispatch(setLoading(false));
   });
 };

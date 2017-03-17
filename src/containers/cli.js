@@ -42,13 +42,13 @@ const AppComponent = ({ command, loading, result, onChange, onSubmit }) => {
 
   return <form onSubmit={handleFormSubmit}>
     <div className="u-padding">
-        <textarea
-          className="u-block u-full-width"
-          value={command}
-          onChange={handleInputChange}
-          onKeyDown={handleOnKeydown}
-          rows={3}
-          ></textarea>
+      <textarea
+        className="u-block u-full-width"
+        value={command}
+        onChange={handleInputChange}
+        onKeyDown={handleOnKeydown}
+        rows={3}
+        ></textarea>
     </div>
     <div className="u-padding">
       <button>RUN</button>
