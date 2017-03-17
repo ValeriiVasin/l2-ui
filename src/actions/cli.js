@@ -1,3 +1,5 @@
+/* global $ */
+
 import {
   CLI_COMMAND_SET,
   CLI_LOADING_SET,
@@ -23,8 +25,16 @@ export const executeCommand = () => (dispatch, getState) => {
   const { command } = getState().cli;
 
   dispatch(setLoading(true));
-  setTimeout(() => {
-    dispatch(setResult(command));
+
+  $.ajax({
+    url: 'http://l2.valeriivasin.com/cli',
+    dataType: 'jsonp',
+    data: {
+      format: 'jsonp',
+      command,
+    }
+  }).then(({ response }) => {
+    dispatch(setResult(response));
     dispatch(setLoading(false));
-  }, 1000);
+  });
 };

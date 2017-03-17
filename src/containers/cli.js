@@ -11,7 +11,7 @@ import {
 const AppComponent = ({ command, loading, result, onChange, onSubmit }) => {
   const handleInputChange = event => {
     event.preventDefault();
-    onChange(event.target.value.trim());
+    onChange(event.target.value);
   };
 
   const handleFormSubmit = event => {
@@ -29,14 +29,20 @@ const AppComponent = ({ command, loading, result, onChange, onSubmit }) => {
     }
 
     return 'Start typing the command...';
-  }
+  };
 
   return <form onSubmit={handleFormSubmit}>
-    <input
-      value={command}
-      onChange={handleInputChange}
-      />
-
+    <div className="u-padding">
+        <textarea
+          className="u-block u-full-width"
+          value={command}
+          onChange={handleInputChange}
+          rows={3}
+          ></textarea>
+    </div>
+    <div className="u-padding">
+      <button>RUN</button>
+    </div>
     <pre>{ getResult() }</pre>
   </form>;
 };
