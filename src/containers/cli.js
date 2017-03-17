@@ -31,12 +31,22 @@ const AppComponent = ({ command, loading, result, onChange, onSubmit }) => {
     return 'Start typing the command...';
   };
 
+  const handleOnKeydown = event => {
+    const isMetaOrCtrlKey = event.metaKey || event.ctrlKey;
+    const isEnterKey = event.which === 13;
+
+    if (isMetaOrCtrlKey && isEnterKey) {
+      onSubmit();
+    }
+  };
+
   return <form onSubmit={handleFormSubmit}>
     <div className="u-padding">
         <textarea
           className="u-block u-full-width"
           value={command}
           onChange={handleInputChange}
+          onKeyDown={handleOnKeydown}
           rows={3}
           ></textarea>
     </div>
