@@ -49,11 +49,13 @@ const AppComponent = ({ command, loading, result, onChange, onSubmit }) => {
         onKeyDown={handleOnKeydown}
         rows={3}
         ></textarea>
+
+      <div className="u-margin-top u-margin-bottom">
+        <button>RUN</button>
+      </div>
+
+      <pre>{ getResult() }</pre>
     </div>
-    <div className="u-padding">
-      <button>RUN</button>
-    </div>
-    <pre>{ getResult() }</pre>
   </form>;
 };
 
