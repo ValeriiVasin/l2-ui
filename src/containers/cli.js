@@ -1,5 +1,5 @@
 /** CLI App */
-import React from 'react';
+import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -8,56 +8,66 @@ import {
   executeCommand,
 } from './../actions/cli';
 
-const AppComponent = ({ command, loading, result, onChange, onSubmit }) => {
-  const handleInputChange = event => {
-    event.preventDefault();
-    onChange(event.target.value);
-  };
+class AppComponent extends Component {
+  render() {
+    const {
+      command,
+      loading,
+      result,
+      onChange,
+      onSubmit
+    } = this.props;
 
-  const handleFormSubmit = event => {
-    event.preventDefault();
-    onSubmit();
-  };
+    const handleInputChange = event => {
+      event.preventDefault();
+      onChange(event.target.value);
+    };
 
-  const getResult = () => {
-    if (loading) {
-      return 'Loading...';
-    }
-
-    if (result) {
-      return result;
-    }
-
-    return 'Start typing the command...';
-  };
-
-  const handleOnKeydown = event => {
-    const isMetaOrCtrlKey = event.metaKey || event.ctrlKey;
-    const isEnterKey = event.which === 13;
-
-    if (isMetaOrCtrlKey && isEnterKey) {
+    const handleFormSubmit = event => {
+      event.preventDefault();
       onSubmit();
-    }
-  };
+    };
 
-  return <form onSubmit={handleFormSubmit}>
-    <div className="u-padding">
-      <textarea
-        className="u-block u-full-width"
-        value={command}
-        onChange={handleInputChange}
-        onKeyDown={handleOnKeydown}
-        rows={3}
-        ></textarea>
+    const getResult = () => {
+      if (loading) {
+        return 'Loading...';
+      }
 
-      <div className="u-margin-top u-margin-bottom">
-        <button>RUN</button>
+      if (result) {
+        return result;
+      }
+
+      return 'Start typing the command...';
+    };
+
+    const handleOnKeydown = event => {
+      const isMetaOrCtrlKey = event.metaKey || event.ctrlKey;
+      const isEnterKey = event.which === 13;
+
+      if (isMetaOrCtrlKey && isEnterKey) {
+        onSubmit();
+      }
+    };
+
+    return <form onSubmit={handleFormSubmit}>
+      <div className="u-padding">
+        <textarea
+          className="u-block u-full-width"
+          value={command}
+          onChange={handleInputChange}
+          onKeyDown={handleOnKeydown}
+          rows={3}
+          ></textarea>
+
+        <div className="u-margin-top u-margin-bottom">
+          <button>RUN</button>
+        </div>
+
+        <pre>{ getResult() }</pre>
       </div>
-
-      <pre>{ getResult() }</pre>
-    </div>
-  </form>;
-};
+    </form>;
+  }
+}
 
 const mapStateToProps = state => {
   const {
