@@ -9,6 +9,10 @@ import {
 } from './../actions/cli';
 
 class AppComponent extends Component {
+  componentDidMount() {
+    this.textarea.focus();
+  }
+
   render() {
     const {
       command,
@@ -57,7 +61,7 @@ class AppComponent extends Component {
           onChange={handleInputChange}
           onKeyDown={handleOnKeydown}
           rows={3}
-          ref={node => node.focus()}
+          ref={node => this.textarea = node}
           ></textarea>
 
         <div className="u-margin-top u-margin-bottom">
