@@ -57,6 +57,7 @@ class AppComponent extends Component {
           onChange={handleInputChange}
           onKeyDown={handleOnKeydown}
           rows={3}
+          ref={node => node.focus()}
           ></textarea>
 
         <div className="u-margin-top u-margin-bottom">
