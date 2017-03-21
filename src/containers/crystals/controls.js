@@ -99,7 +99,7 @@ const TextInputContainer = connect(
   })
 )(TextInputControl);
 
-export const Controls = () => {
+export default () => {
   return <div className="App">
     <TextInputContainer />
 

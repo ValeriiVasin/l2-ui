@@ -6,7 +6,6 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { HashRouter as Router, Link, Route } from 'react-router-dom';
 
-
 import CrystalsApp from './containers/crystals/crystals';
 import { MarketContainer } from './containers/market';
 import CLIApp from './containers/cli';

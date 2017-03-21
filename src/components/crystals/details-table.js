@@ -1,4 +1,7 @@
-export const DetailsTable = ({ items }) => {
+import React from 'react';
+import { priceToString } from '../../helpers';
+
+export const DetailsTable = ({ items, prices }) => {
   if (items.length === 0) {
     return null;
   }
@@ -8,7 +11,7 @@ export const DetailsTable = ({ items }) => {
   const rows = items.map(item => {
     const cryRank = item.crystals.rank;
     const cryAmount = item.crystals.amount;
-    const cryPrice = this.state.price[cryRank];
+    const cryPrice = prices[cryRank];
 
     const name = item.name;
     const amount = item.amount;
@@ -54,4 +57,4 @@ export const DetailsTable = ({ items }) => {
       </table>
     </div>
   );
-}
+};
