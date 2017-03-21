@@ -15,7 +15,9 @@ export class Market extends Component {
 
 
     if (loading) {
-      return <h1>Loading...</h1>;
+      return <div className="u-padding">
+        <h1>Loading...</h1>
+      </div>;
     }
 
     const ids = Object.keys(items);
@@ -31,6 +33,6 @@ export class Market extends Component {
         />;
     });
 
-    return <div className="container">{rows}</div>;
+    return <div className="container u-padding">{rows}</div>;
   }
 }
