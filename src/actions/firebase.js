@@ -1,11 +1,12 @@
 import * as firebase from 'firebase';
+import once from 'lodash/once';
 
 import {
   FIREBASE_VALUES_SET,
   FIREBASE_LOADED_SET
 } from './types';
 
-const connect = () => {
+const connect = once(() => {
   // Initialize Firebase
   const config = {
     apiKey: 'AIzaSyA7BYqnR5K6rHSF1CuAmOVZ2qpFv4s4J9I',
@@ -16,7 +17,7 @@ const connect = () => {
   };
 
   firebase.initializeApp(config);
-};
+});
 
 const setFirebaseValues = values => {
   return {

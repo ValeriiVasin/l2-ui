@@ -4,10 +4,11 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
+import { HashRouter as Router, Link, Route } from 'react-router-dom';
+
 
 import CrystalsApp from './containers/crystals/crystals';
 import { MarketContainer } from './containers/market';
-
 import CLIApp from './containers/cli';
 
 import rootReducer from './reducers';
@@ -23,25 +24,30 @@ const store = createStore(
 );
 
 const App = () => {
-  const isMarket = location.hash === '#market';
-  const isCLI = location.hash === '#cli';
-
-  const renderApp = () => {
-    if (isMarket) {
-      return <MarketContainer />;
-    }
-
-    if (isCLI) {
-      return <CLIApp />;
-    }
-
-    return <CrystalsApp />
-  }
-
   return (
-    <Provider store={store}>
-      {renderApp()}
-    </Provider>
+    <Router>
+      <div>
+        <div>
+          <div className="u-inline-block u-padding">
+            <Link to={'/'}>Market</Link>
+          </div>
+          <div className="u-inline-block u-padding">
+            <Link to={'/cry'}>Crystals</Link>
+          </div>
+          <div className="u-inline-block u-padding">
+            <Link to={'/cli'}>CLI</Link>
+          </div>
+        </div>
+
+        <Provider store={store}>
+          <div>
+            <Route path="/" exact={true} component={MarketContainer} />
+            <Route path="/cli" component={CLIApp} />
+            <Route path="/cry" component={CrystalsApp} />
+          </div>
+        </Provider>
+      </div>
+    </Router>
   );
 };
 
