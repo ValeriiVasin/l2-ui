@@ -4,6 +4,10 @@ body {
   font-family: sans-serif;
 }
 
+.App {
+  padding: 25px 50px;
+}
+
 .u-margin-top {
   margin-top: 16px;
 }
@@ -26,4 +30,16 @@ body {
 
 .u-full-width {
   width: 100%;
+}
+
+.u-vertical-align-middle {
+  vertical-align: middle !important;
+}
+
+.u-color-blue {
+  color: blue;
+}
+
+.u-color-red {
+  color: red;
 }

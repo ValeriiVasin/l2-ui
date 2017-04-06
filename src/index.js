@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { HashRouter as Router, Link, Route } from 'react-router-dom';
+import persistState from 'redux-localstorage';
 
+// root containers
 import CrystalsApp from './containers/crystals/crystals';
 import { MarketContainer } from './containers/market';
 import CLIApp from './containers/cli';
@@ -19,7 +21,10 @@ const logger = createLogger();
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunk, logger)
+  compose(
+    applyMiddleware(thunk, logger),
+    persistState(),
+  ),
 );
 
 const App = () => {
