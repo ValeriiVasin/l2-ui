@@ -21,7 +21,7 @@ export const MonitoringItem = ({ item, basePrice }) => {
   const sellToShopPrice = basePrice ? basePrice * 0.5 * 0.9 : 0;
   const basePriceTitle = `base price: ${basePrice}; sell to shop: ${sellToShopPrice}`;
 
-  return <div className="row" style={{ marginBottom: 30 }}>
+  return <div style={{ marginBottom: 30 }}>
     <div className="row">
       <h4 style={{ display: 'inline-block', marginRight: 10 }}>
         <a href={`http://l2on.net/?c=market&a=item&id=${item.id}`} target="_blank">{item.name}</a>
