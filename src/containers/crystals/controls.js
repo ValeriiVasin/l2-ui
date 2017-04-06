@@ -100,7 +100,7 @@ const TextInputContainer = connect(
 )(TextInputControl);
 
 export default () => {
-  return <div className="App">
+  return <div>
     <TextInputContainer />
 
     <form className="form-inline" key="controls" style={{ marginTop: 30 }}>
