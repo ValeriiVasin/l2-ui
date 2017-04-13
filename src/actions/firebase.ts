@@ -1,9 +1,9 @@
 import * as firebase from 'firebase';
-import once from 'lodash/once';
+import * as once from 'lodash/once';
 
 import {
+  FIREBASE_LOADED_SET,
   FIREBASE_VALUES_SET,
-  FIREBASE_LOADED_SET
 } from './types';
 
 const connect = once(() => {
@@ -13,7 +13,7 @@ const connect = once(() => {
     authDomain: 'l2-parser.firebaseapp.com',
     databaseURL: 'https://l2-parser.firebaseio.com',
     storageBucket: 'l2-parser.appspot.com',
-    messagingSenderId: '267984779420'
+    messagingSenderId: '267984779420',
   };
 
   firebase.initializeApp(config);
@@ -22,7 +22,7 @@ const connect = once(() => {
 const setFirebaseValues = values => {
   return {
     type: FIREBASE_VALUES_SET,
-    values
+    values,
   };
 };
 
@@ -33,6 +33,10 @@ export const connectToFirebase = () => dispatch => {
 
   firebase.database().ref('/')
     .on('value', snapshot => {
+      if (!snapshot) {
+        return;
+      }
+
       dispatch(setFirebaseValues(snapshot.val()));
       dispatch(setLoaded());
     });

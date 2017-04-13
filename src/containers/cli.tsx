@@ -1,33 +1,44 @@
 /** CLI App */
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 
 import { connect } from 'react-redux';
 
 import {
-  setCommand,
   executeCommand,
+  setCommand,
 } from './../actions/cli';
 
-class AppComponent extends Component {
-  componentDidMount() {
+interface IAppCliProps {
+  command: string;
+  loading: boolean;
+  result: string;
+  onChange: (text: string) => void;
+  onSubmit: () => void;
+}
+
+class AppComponent extends Component<IAppCliProps, any> {
+  private textarea: HTMLElement;
+
+  public componentDidMount() {
     this.textarea.focus();
   }
 
-  render() {
+  public render() {
     const {
       command,
       loading,
       result,
       onChange,
-      onSubmit
+      onSubmit,
     } = this.props;
 
-    const handleInputChange = event => {
+    const handleInputChange = (event: any) => {
       event.preventDefault();
       onChange(event.target.value);
     };
 
-    const handleFormSubmit = event => {
+    const handleFormSubmit = (event: any) => {
       event.preventDefault();
       onSubmit();
     };
@@ -53,24 +64,26 @@ class AppComponent extends Component {
       }
     };
 
-    return <form onSubmit={handleFormSubmit}>
-      <div className="u-padding">
-        <textarea
-          className="u-block u-full-width"
-          value={command}
-          onChange={handleInputChange}
-          onKeyDown={handleOnKeydown}
-          rows={3}
-          ref={node => this.textarea = node}
-          ></textarea>
+    return (
+      <form onSubmit={handleFormSubmit}>
+        <div className="u-padding">
+          <textarea
+            className="u-block u-full-width"
+            value={command}
+            onChange={handleInputChange}
+            onKeyDown={handleOnKeydown}
+            rows={3}
+            ref={node => this.textarea = node}
+          />
 
-        <div className="u-margin-top u-margin-bottom">
-          <button>RUN</button>
+          <div className="u-margin-top u-margin-bottom">
+            <button>RUN</button>
+          </div>
+
+          <pre>{ getResult() }</pre>
         </div>
-
-        <pre>{ getResult() }</pre>
-      </div>
-    </form>;
+      </form>
+    );
   }
 }
 
@@ -97,5 +110,5 @@ const mapDispatchToProps = dispatch => {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(AppComponent);

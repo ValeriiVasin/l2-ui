@@ -1,11 +1,11 @@
 import {
-  FIREBASE_VALUES_SET,
   FIREBASE_LOADED_SET,
+  FIREBASE_VALUES_SET,
 } from '../actions/types';
 
 const INITIAL_STATE = {
   loaded: false,
-  values: null
+  values: null,
 };
 
 export const firebase = (state = INITIAL_STATE, action) => {
@@ -18,8 +18,7 @@ export const firebase = (state = INITIAL_STATE, action) => {
   }
 
   return state;
-}
-
+};
 
 // getters
 export const isLoading = state => {
@@ -32,7 +31,7 @@ export const getL2OnPrices = state => {
   }
 
   return state.firebase.values.l2on.currentPrices;
-}
+};
 
 export const getBasePrices = state => {
   if (isLoading(state)) {

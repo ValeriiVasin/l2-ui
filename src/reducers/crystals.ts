@@ -1,9 +1,9 @@
 import {
-  CRYSTALS_LOADING_TOGGLE,
+  CRYSTALS_INTEREST_SET,
   CRYSTALS_ITEMS_SET,
+  CRYSTALS_LOADING_TOGGLE,
   CRYSTALS_PRICE_SET,
   CRYSTALS_TEXT_SET,
-  CRYSTALS_INTEREST_SET
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -43,4 +43,4 @@ export const crystals = (state = INITIAL_STATE, action) => {
   }
 
   return state;
-}
+};

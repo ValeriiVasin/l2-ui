@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
-import { firebase } from './firebase';
-import { crystals } from './crystals';
 import { cli } from './cli';
+import { crystals } from './crystals';
+import { firebase } from './firebase';
 
 export default combineReducers({
   firebase,
   crystals,
-  cli
+  cli,
 });

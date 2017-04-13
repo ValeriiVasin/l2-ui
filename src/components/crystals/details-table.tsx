@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { priceToString } from '../../helpers';
 
 export const DetailsTable = ({ items, prices }) => {
@@ -40,7 +40,7 @@ export const DetailsTable = ({ items, prices }) => {
   });
 
   return (
-    <div key='details'>
+    <div key="details">
       <h1>Details - {totalItemsAmount}</h1>
       <table className="table">
         <tbody>

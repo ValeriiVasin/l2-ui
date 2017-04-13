@@ -1,23 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware, compose } from 'redux';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import createLogger from 'redux-logger';
 import { HashRouter as Router, Link, Route } from 'react-router-dom';
-import persistState from 'redux-localstorage';
+import { applyMiddleware, compose, createStore } from 'redux';
+import * as persistState from 'redux-localstorage';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
 // root containers
+import CLIApp from './containers/cli';
 import CrystalsApp from './containers/crystals/crystals';
 import { MarketContainer } from './containers/market';
-import CLIApp from './containers/cli';
 
 import rootReducer from './reducers';
 
-import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
-
-const logger = createLogger();
+import './index.css';
 
 const store = createStore(
   rootReducer,
@@ -45,9 +43,9 @@ const App = () => {
 
         <Provider store={store}>
           <div>
-            <Route path="/" exact={true} component={MarketContainer} />
-            <Route path="/cli" component={CLIApp} />
-            <Route path="/cry" component={CrystalsApp} />
+            <Route path="/" exact={true} component={MarketContainer as any} />
+            <Route path="/cli" component={CLIApp as any} />
+            <Route path="/cry" component={CrystalsApp as any} />
           </div>
         </Provider>
       </div>

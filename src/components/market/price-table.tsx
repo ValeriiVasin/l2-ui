@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { PriceRow } from './price-row';
 
@@ -11,16 +11,20 @@ export const PriceTable = ({ prices, limit, type, median }) => {
       const key = `${index}:${price.amount}:${price.price}`;
       const isHighlighted = type === 'sell' ? median > price.price : median < price.price;
 
-      return <PriceRow
-        key={key}
-        price={price.price}
-        amount={price.amount}
-        time={price.time}
-        isHighlighted={isHighlighted}
-      />;
+      return (
+        <PriceRow
+          key={key}
+          price={price.price}
+          amount={price.amount}
+          time={price.time}
+          isHighlighted={isHighlighted}
+        />
+      );
     });
 
-  return <table className="table">
-    <tbody>{rows}</tbody>
-  </table>;
+  return (
+    <table className="table">
+      <tbody>{rows}</tbody>
+    </table>
+  );
 };

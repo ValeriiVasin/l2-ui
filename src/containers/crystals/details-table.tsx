@@ -13,5 +13,5 @@ const mapStateToProps = state => {
 };
 
 export default connect(
-  mapStateToProps
-)(DetailsTable);
+  mapStateToProps,
+)(DetailsTable as any);

@@ -1,6 +1,29 @@
-import React from 'react';
+import * as React from 'react';
 
-import { priceToString, interestAmount } from '../../helpers';
+import { interestAmount, priceToString } from '../../helpers';
+
+const getStatusString = (results, prices, interest) => {
+  let totalPrice = 0;
+  let totalReturn = '';
+
+  const availableRanks = Object.keys(results);
+
+  availableRanks.forEach(rank => {
+    const rankPrice = prices[rank];
+    const rankAmount = results[rank];
+    const returnAmount = rankAmount - interestAmount(rankAmount, interest);
+
+    totalPrice += rankPrice * rankAmount;
+    totalReturn += ` ${rank}x - ${returnAmount};`;
+  });
+
+  return (
+    <div>
+      <h5>Total price: {priceToString(totalPrice)}</h5>
+      <h5>Total return: {totalReturn.trim()}</h5>
+    </div>
+  );
+};
 
 export default ({ interest, items, prices }) => {
   if (items.length === 0) {
@@ -45,31 +68,10 @@ export default ({ interest, items, prices }) => {
     );
   });
 
-  const getStatusString = results => {
-    let totalPrice = 0;
-    let totalReturn = '';
-
-    const availableRanks = Object.keys(results);
-
-    availableRanks.forEach(rank => {
-      const rankPrice = prices[rank];
-      const rankAmount = results[rank];
-      const returnAmount = rankAmount - interestAmount(rankAmount, interest);
-
-      totalPrice += rankPrice * rankAmount;
-      totalReturn += ` ${rank}x - ${returnAmount};`;
-    });
-
-    return <div>
-      <h5>Total price: {priceToString(totalPrice)}</h5>
-      <h5>Total return: {totalReturn.trim()}</h5>
-    </div>;
-  };
-
   return (
-    <div key='overview'>
+    <div key="overview">
       <h1>Overview Table</h1>
-      {getStatusString(results)}
+      {getStatusString(results, prices, interest)}
       <table className="table">
         <tbody>
           {headers}

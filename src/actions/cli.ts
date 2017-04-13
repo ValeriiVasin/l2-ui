@@ -1,5 +1,3 @@
-/* global $ */
-
 import {
   CLI_COMMAND_SET,
   CLI_LOADING_SET,
@@ -13,7 +11,7 @@ export const setLoading = state => ({
 
 export const setCommand = command => ({
   type: CLI_COMMAND_SET,
-  payload: { command }
+  payload: { command },
 });
 
 const setResult = result => ({
@@ -32,7 +30,7 @@ export const executeCommand = () => (dispatch, getState) => {
     data: {
       format: 'jsonp',
       command,
-    }
+    },
   }).then(({ response }) => {
     dispatch(setResult(response));
     dispatch(setLoading(false));

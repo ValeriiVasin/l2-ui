@@ -10,10 +10,10 @@ const mapStateToProps = state => {
   return {
     items,
     prices,
-    interest
+    interest,
   };
 };
 
 export default connect(
-  mapStateToProps
-)(OverviewTable);
+  mapStateToProps,
+)(OverviewTable as any);

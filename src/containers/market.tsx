@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 
-import { Market } from '../components/market/market';
 import { connectToFirebase } from '../actions/firebase';
+import { Market } from '../components/market/market';
 
-import { getL2OnPrices, isLoading, getBasePrices } from '../reducers/firebase';
+import { getBasePrices, getL2OnPrices, isLoading } from '../reducers/firebase';
 
 const mapStateToProps = state => {
   const loading = isLoading(state);
@@ -13,19 +13,17 @@ const mapStateToProps = state => {
   return {
     loading,
     items,
-    basePrices
+    basePrices,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    connectToFirebase: () => dispatch(connectToFirebase())
+    connectToFirebase: () => dispatch(connectToFirebase()),
   };
 };
 
 export const MarketContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Market);
-
-

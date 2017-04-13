@@ -1,4 +1,4 @@
-export function priceToString(price) {
+export function priceToString(price: number) {
   const str = price.toString();
   let result = '';
 
@@ -17,11 +17,15 @@ export function priceToString(price) {
   return result.split('').reverse().join('').trim();
 }
 
-export function interestAmount(amount, interest) {
+export function interestAmount(amount: number, interest: number) {
   return Math.ceil(amount * interest / 100);
 }
 
-export function medianPrice(prices) {
+interface IL2OnPrice {
+  price: number;
+}
+
+export function medianPrice(prices: IL2OnPrice[]) {
   if (prices.length === 0) {
     return 'N/A';
   }

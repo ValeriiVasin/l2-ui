@@ -1,11 +1,11 @@
 /* global $ */
 
 import {
-  CRYSTALS_PRICE_SET,
   CRYSTALS_INTEREST_SET,
-  CRYSTALS_TEXT_SET,
-  CRYSTALS_LOADING_TOGGLE,
   CRYSTALS_ITEMS_SET,
+  CRYSTALS_LOADING_TOGGLE,
+  CRYSTALS_PRICE_SET,
+  CRYSTALS_TEXT_SET,
 } from './types';
 
 const toggleLoading = value => ({
@@ -15,7 +15,7 @@ const toggleLoading = value => ({
 
 export const setPrice = ({ rank, price }) => ({
   type: CRYSTALS_PRICE_SET,
-  payload: { rank, price }
+  payload: { rank, price },
 });
 
 export const setInterest = ({ interest }) => ({
@@ -32,7 +32,7 @@ export const setText = text => {
 
 const setItems = items => ({
   type: CRYSTALS_ITEMS_SET,
-  payload: { items }
+  payload: { items },
 });
 
 export const fetchItems = text => dispatch => {
@@ -43,8 +43,8 @@ export const fetchItems = text => dispatch => {
     dataType: 'jsonp',
     data: {
       format: 'jsonp',
-      items: text.replace(/-{2}/g, ';')
-    }
+      items: text.replace(/-{2}/g, ';'),
+    },
   }).then(({ results }) => {
     dispatch(setItems(results));
     dispatch(toggleLoading(false));
