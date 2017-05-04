@@ -76,14 +76,21 @@ class AppComponent extends Component<IAppCliProps, any> {
             ref={node => this.textarea = node}
           />
 
-          <div className="u-margin-top u-margin-bottom">
-            <button>RUN</button>
+          <div className="u-margin-top u-margin-bottom clearfix">
+            <button className="pull-left">RUN</button>
+            <button className="pull-right" onClick={this.handleClearButtonClick}>CLEAR</button>
           </div>
 
           <pre>{ getResult() }</pre>
         </div>
       </form>
     );
+  }
+
+  private handleClearButtonClick = event => {
+    event.preventDefault();
+    this.props.onChange('');
+    this.textarea.focus();
   }
 }
 
