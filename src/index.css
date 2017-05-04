@@ -4,6 +4,11 @@ body {
   font-family: sans-serif;
 }
 
+pre {
+  /* break line only on line breakers */
+  word-wrap: normal;
+}
+
 .App {
   padding: 25px 50px;
 }
