@@ -52,3 +52,7 @@ pre {
 .u-color-red {
   color: red;
 }
+
+.is-active {
+  font-weight: bold;
+}

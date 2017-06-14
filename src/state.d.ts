@@ -15,6 +15,10 @@ interface IAppState {
       config: {
         l2on: IL2OnConfigItem[];
       };
-    }
+    };
+  };
+
+  market: {
+    filter: TL2OnConfigFIlterType;
   }
 }

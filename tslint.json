@@ -4,6 +4,7 @@
         "tslint-react"
     ],
     "rules": {
+        "ordered-imports": [false],
         "no-any": false,
         "align": [
             true,
