@@ -24,20 +24,21 @@ const MenuComponent = ({
   }
 
   const menu = items.map(item => {
-    const className = item.isActive ? 'is-active' : '';
+    const className = item.isActive ? 'active' : '';
     return (
       <li
         key={item.name}
         className={className}
+        role="presentation"
         onClick={() => filterMarket(item.name)}
-      >
-        {item.name}
+       >
+        <a href="javascript:void(0)">{item.name}</a>
       </li>
     );
   });
 
   return (
-    <ul>
+    <ul className="nav nav-pills nav-justified">
       {menu}
     </ul>
   );
