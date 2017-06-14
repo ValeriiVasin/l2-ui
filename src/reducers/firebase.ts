@@ -1,3 +1,5 @@
+import { pickBy } from 'lodash';
+
 import {
   FIREBASE_LOADED_SET,
   FIREBASE_VALUES_SET,
@@ -5,7 +7,14 @@ import {
 
 const INITIAL_STATE = {
   loaded: false,
-  values: null,
+  values: {
+    l2on: {
+      currentPrices: {},
+    },
+    config: {
+      l2on: [],
+    },
+  },
 };
 
 export const firebase = (state = INITIAL_STATE, action) => {
@@ -25,12 +34,34 @@ export const isLoading = state => {
   return !state.firebase.loaded;
 };
 
-export const getL2OnPrices = state => {
-  if (isLoading(state)) {
-    return {};
+export const getL2OnPrices = (state: IAppState): IL2OnCurrentPricesList => {
+  return state.firebase.values.l2on.currentPrices;
+};
+
+const getL2OnConfig = (state: IAppState): IL2OnConfigItem[] => {
+  return state.firebase.values.config.l2on;
+};
+
+const getFilteredItems = (state: IAppState, filter: TL2OnConfigFIlterType): string[] => {
+  const config = getL2OnConfig(state);
+
+  if (filter === 'all') {
+    return config.map(item => item.name);
   }
 
-  return state.firebase.values.l2on.currentPrices;
+  if (filter === 'favorites') {
+    return config.filter(item => item.favorite).map(item => item.name);
+  }
+
+  return config.filter(item => item.type === filter).map(item => item.name);
+};
+
+export const getFilteredL2OnPrices = (state: IAppState) => {
+  const prices: IL2OnCurrentPricesList = getL2OnPrices(state);
+  const filter = state.market.filter;
+  const items = getFilteredItems(state, filter);
+
+  return pickBy(prices, (price: IL2OnCurrentPrices) => items.indexOf(price.name) !== -1);
 };
 
 export const getBasePrices = state => {

@@ -1,3 +1,4 @@
+import { isLoading } from '../../reducers/firebase';
 /** Control inputs */
 import * as React from 'react';
 import { connect } from 'react-redux';
@@ -43,11 +44,10 @@ const MenuComponent = ({
 };
 
 const mapStateToProps = (state: IAppState) => {
-  const loading = state.firebase.loading;
   const filter = state.market.filter;
 
-  if (loading) {
-    return { loading, items: [], filter };
+  if (isLoading(state)) {
+    return { loading: true, items: [], filter };
   }
 
   const items = [
@@ -57,8 +57,9 @@ const mapStateToProps = (state: IAppState) => {
   ].map(item => ({ name: item, isActive: item === filter }));
 
   return {
-    loading,
+    loading: false,
     items,
+    filter,
   };
 };
 
