@@ -13,6 +13,8 @@ export class Market extends Component<any, any> {
       items,
       basePrices,
       loading,
+      expandedItems,
+      toggle,
     } = this.props;
 
     if (loading) {
@@ -34,6 +36,8 @@ export class Market extends Component<any, any> {
           key={id}
           item={item}
           basePrice={basePrice}
+          expanded={expandedItems[id]}
+          toggle={toggle}
         />
       );
     });

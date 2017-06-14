@@ -48,5 +48,8 @@ interface IAppState {
 
   market: {
     filter: TL2OnConfigFIlterType;
+    expandedItems: {
+      [id: string]: boolean;
+    }
   }
 }

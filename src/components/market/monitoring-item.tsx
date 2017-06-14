@@ -3,7 +3,7 @@ import * as React from 'react';
 import { medianPrice } from '../../helpers';
 import { PriceTable } from './price-table';
 
-export const MonitoringItem = ({ item, basePrice }) => {
+export const MonitoringItem = ({ item, basePrice, expanded, toggle }) => {
   const sells = item.sell.filter(price => price.fresh).sort((a, b) => a.price - b.price);
   const buys = item.buy.filter(price => price.fresh).sort((a, b) => b.price - a.price);
 
@@ -11,11 +11,11 @@ export const MonitoringItem = ({ item, basePrice }) => {
   const medianBuyPrice = medianPrice(item.buy);
 
   const sellsTable = buys.length ?
-                    <PriceTable prices={sells} limit={3} type="sell" median={medianSellPrice} /> :
+                    <PriceTable prices={sells} limit={expanded ? 0 : 3} type="sell" median={medianSellPrice} /> :
                     <h6>No active sellers found</h6>;
 
   const buysTable = buys.length ?
-                    <PriceTable prices={buys} limit={3} type="buy" median={medianBuyPrice} /> :
+                    <PriceTable prices={buys} limit={expanded ? 0 : 3} type="buy" median={medianBuyPrice} /> :
                     <h6>No active buyers found</h6>;
 
   const sellToShopPrice = basePrice ? basePrice * 0.5 * 0.9 : 0;
@@ -34,6 +34,11 @@ export const MonitoringItem = ({ item, basePrice }) => {
           style={{ display: 'inline-block', marginLeft: 10 }}
           title={basePriceTitle}
           >{sellToShopPrice}</span>
+        <a
+          style={{ display: 'inline-block', marginLeft: 10 }}
+          href="javascript:void(0)"
+          onClick={() => toggle(item.id)}
+          >{ expanded ? 'collapse' : 'expand' }</a>
       </div>
 
       <div className="row">

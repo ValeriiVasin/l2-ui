@@ -3,7 +3,7 @@ import * as React from 'react';
 import { PriceRow } from './price-row';
 
 export const PriceTable = ({ prices, limit, type, median }) => {
-  const itemsLimit = limit ? limit : prices.length - 1;
+  const itemsLimit = limit ? limit : prices.length;
 
   const rows = prices
     .slice(0, itemsLimit)
