@@ -17,9 +17,11 @@ import rootReducer from './reducers';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
+const composeEnhancers = (window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+
 const store = createStore(
   rootReducer,
-  compose(
+  composeEnhancers(
     applyMiddleware(thunk, logger),
     persistState(),
   ),
