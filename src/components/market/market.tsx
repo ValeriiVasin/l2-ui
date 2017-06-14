@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
+import MenuContainer from '../../containers/market/menu';
 import { MonitoringItem } from './monitoring-item';
 
 export class Market extends Component<any, any> {
@@ -37,6 +38,11 @@ export class Market extends Component<any, any> {
       );
     });
 
-    return <div className="container u-padding">{rows}</div>;
+    return (
+      <div className="container u-padding">
+        <MenuContainer />
+        {rows}
+      </div>
+    );
   }
 }
