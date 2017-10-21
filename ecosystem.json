@@ -2,7 +2,7 @@
   "deploy": {
     "production": {
       "user": "root",
-      "host": ["valeriivasin.com"],
+      "host": "188.226.186.195",
       "repo": "git@bitbucket.org:valeriivasin/l2-proxy-ui.git",
       "ref": "origin/master",
       "path": "/var/www/l2-proxy-ui",

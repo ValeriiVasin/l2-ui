@@ -52,7 +52,7 @@ class App extends Component {
 
     if (IS_ONLINE) {
       return $.ajax({
-        url: `http://l2.valeriivasin.com/crystals`,
+        url: '//l2.valeriivasin.com/crystals',
         dataType: 'jsonp',
         data: {
           format: 'jsonp',
@@ -65,16 +65,6 @@ class App extends Component {
         });
       });
     }
-
-    // fake response when not online
-    setTimeout(() => {
-      this.setStateAndSync({
-        items: [
-          { name: 'Тарбар', amount: 1, crystals: { rank: 'D', amount: 1758 } },
-        ],
-        loading: false,
-      });
-    }, 50);
   }
 
   componentDidMount() {

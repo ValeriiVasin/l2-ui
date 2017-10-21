@@ -1,3 +1,4 @@
+import { getAPIPath } from '../helpers';
 import {
   CLI_COMMAND_SET,
   CLI_LOADING_SET,
@@ -25,7 +26,7 @@ export const executeCommand = () => (dispatch, getState) => {
   dispatch(setLoading(true));
 
   $.ajax({
-    url: 'http://l2.valeriivasin.com/cli',
+    url: getAPIPath('/cli'),
     dataType: 'jsonp',
     data: {
       format: 'jsonp',

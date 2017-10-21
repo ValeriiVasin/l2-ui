@@ -1,5 +1,6 @@
 /* global $ */
 
+import { getAPIPath } from '../helpers';
 import {
   CRYSTALS_INTEREST_SET,
   CRYSTALS_ITEMS_SET,
@@ -39,7 +40,7 @@ export const fetchItems = text => dispatch => {
   dispatch(toggleLoading(true));
 
   $.ajax({
-    url: `http://l2.valeriivasin.com/crystals`,
+    url: getAPIPath('/crystals'),
     dataType: 'jsonp',
     data: {
       format: 'jsonp',

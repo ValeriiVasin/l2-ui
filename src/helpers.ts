@@ -40,3 +40,13 @@ export function medianPrice(prices: IL2OnPrice[]) {
 
   return Math.round((values[midIndex] + values[midIndex - 1]) / 2);
 }
+
+function isLocalhost() {
+  return window.location.hostname.includes('localhost');
+}
+
+export function getAPIPath(path: string) {
+  const API_BASE_PATH = isLocalhost() ? 'http://localhost:3011' : 'https://valeriivasin.com';
+
+  return path.startsWith('/') ? `${API_BASE_PATH}${path}` : `${API_BASE_PATH}/${path}`;
+}
