@@ -1,10 +1,8 @@
 import * as React from 'react';
+import { getMinutesAgo } from '../../helpers';
 
 export const PriceRow = ({ price, amount, time, isHighlighted = false }) => {
-  const minsAgo = Math.ceil(
-    (Date.now() - new Date(time).getTime()) / (60 * 1000),
-  );
-
+  const minsAgo = getMinutesAgo(time);
   const highlightedStyle = { backgroundColor: 'green', color: 'white' };
 
   return (

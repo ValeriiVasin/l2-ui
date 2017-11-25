@@ -14,6 +14,9 @@ const INITIAL_STATE = {
     config: {
       l2on: [],
     },
+    updates: {
+      l2on: '',
+    },
   },
 };
 

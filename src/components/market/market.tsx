@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import MenuContainer from '../../containers/market/menu';
 import { MonitoringItem } from './monitoring-item';
+import { getMinutesAgo } from '../../helpers';
 
 export class Market extends Component<any, any> {
   public componentDidMount() {
@@ -15,6 +16,7 @@ export class Market extends Component<any, any> {
       loading,
       expandedItems,
       toggle,
+      l2onUpdateTime,
     } = this.props;
 
     if (loading) {
@@ -44,6 +46,7 @@ export class Market extends Component<any, any> {
 
     return (
       <div className="container u-padding">
+        <pre>Updated: {getMinutesAgo(new Date(l2onUpdateTime))}mins ago / {l2onUpdateTime}</pre>
         <MenuContainer />
         {rows}
       </div>

@@ -43,6 +43,10 @@ interface IAppState {
       l2on: {
         currentPrices: IL2OnCurrentPricesList;
       };
+
+      updates: {
+        l2on: string;
+      }
     };
   };
 

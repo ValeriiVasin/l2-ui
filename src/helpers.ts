@@ -50,3 +50,11 @@ export function getAPIPath(path: string) {
 
   return path.startsWith('/') ? `${API_BASE_PATH}${path}` : `${API_BASE_PATH}/${path}`;
 }
+
+export function getMinutesAgo(timestamp: Date | number): number {
+  const date = typeof timestamp === 'number' ? new Date(timestamp) : timestamp;
+
+  return Math.ceil(
+    (Date.now() - date.getTime()) / (60 * 1000),
+  );
+}
