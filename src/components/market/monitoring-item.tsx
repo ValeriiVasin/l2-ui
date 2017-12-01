@@ -4,6 +4,14 @@ import { medianPrice } from '../../helpers';
 import { PriceTable } from './price-table';
 
 export const MonitoringItem = ({ item, basePrice, expanded, toggle }) => {
+  if (!item.buy) {
+    item.buy = [];
+  }
+
+  if (!item.sell) {
+    item.sell = [];
+  }
+
   const sells = item.sell.filter(price => price.fresh).sort((a, b) => a.price - b.price);
   const buys = item.buy.filter(price => price.fresh).sort((a, b) => b.price - a.price);
 

@@ -3,7 +3,6 @@ export function priceToString(price: number) {
   let result = '';
 
   for (let i = str.length - 1, count = 0; i >= 0; i--) {
-
     if (count === 3) {
       result += ' ';
       count = 0;
@@ -14,7 +13,11 @@ export function priceToString(price: number) {
     count += 1;
   }
 
-  return result.split('').reverse().join('').trim();
+  return result
+    .split('')
+    .reverse()
+    .join('')
+    .trim();
 }
 
 export function interestAmount(amount: number, interest: number) {
@@ -54,7 +57,5 @@ export function getAPIPath(path: string) {
 export function getMinutesAgo(timestamp: Date | number): number {
   const date = typeof timestamp === 'number' ? new Date(timestamp) : timestamp;
 
-  return Math.ceil(
-    (Date.now() - date.getTime()) / (60 * 1000),
-  );
+  return Math.ceil((Date.now() - date.getTime()) / (60 * 1000));
 }
