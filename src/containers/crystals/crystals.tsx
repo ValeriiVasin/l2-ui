@@ -9,7 +9,7 @@ import { Spinner } from '../../components';
 
 const CrystalsApp = ({ loading }: { loading: boolean }) => {
   return (
-    <div className="u-padding">
+    <div className='u-padding'>
       <Controls />
       { loading ? <Spinner /> : null }
       <OverviewTableContainer />
@@ -19,7 +19,7 @@ const CrystalsApp = ({ loading }: { loading: boolean }) => {
 };
 
 const CrystalsAppContainer = connect(
-  state => ({ loading: state.crystals.loading }),
+  (state: IAppState) => ({ loading: state.crystals.loading }),
 )(CrystalsApp);
 
 export default CrystalsAppContainer;

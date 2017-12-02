@@ -6,7 +6,7 @@ import {
   CRYSTALS_TEXT_SET,
 } from '../actions/types';
 
-const INITIAL_STATE = {
+const INITIAL_STATE: ICrystalsAppState = {
   loading: false,
   interest: 5,
   price: {

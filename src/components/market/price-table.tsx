@@ -23,7 +23,7 @@ export const PriceTable = ({ prices, limit, type, median }) => {
     });
 
   return (
-    <table className="table">
+    <table className='table'>
       <tbody>{rows}</tbody>
     </table>
   );

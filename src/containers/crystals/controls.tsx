@@ -41,22 +41,22 @@ const normalizeOnChange = onChange => event => {
 
 const InterestControl = ({ interest, onChange }) => {
   return (
-    <div className="form-group" style={{ width: 200, marginRight: 30 }}>
-      <div className="input-group">
+    <div className='form-group' style={{ width: 200, marginRight: 30 }}>
+      <div className='input-group'>
         <input
-          className="form-control"
-          placeholder="interest percentage"
+          className='form-control'
+          placeholder='interest percentage'
           value={interest}
           onChange={normalizeOnChange(onChange)}
           />
-        <div className="input-group-addon">%</div>
+        <div className='input-group-addon'>%</div>
       </div>
     </div>
   );
 };
 
 const InterestControlContainer = connect(
-  state => ({ interest: state.crystals.interest }),
+  (state: IAppState) => ({ interest: state.crystals.interest }),
   dispatch => ({
     onChange: value => dispatch(setInterest({ interest: value })),
   }),
@@ -90,8 +90,8 @@ class TextInputControl extends Component<any, any> {
         <input
           value={text}
           onChange={handleChange}
-          ref={node => this.input = node}
-          className="form-control"
+          ref={node => this.input = node as HTMLInputElement}
+          className='form-control'
         />
       </form>
     );
@@ -99,7 +99,7 @@ class TextInputControl extends Component<any, any> {
 }
 
 const TextInputContainer = connect(
-  state => ({ text: state.crystals.text }),
+  (state: IAppState) => ({ text: state.crystals.text }),
   dispatch => ({
     onChange: text => dispatch(setText(text)),
     onSubmit: text => dispatch(fetchItems(text)),
@@ -111,7 +111,7 @@ export default () => {
     <div>
       <TextInputContainer />
 
-      <form className="form-inline" key="controls" style={{ marginTop: 30 }}>
+      <form className='form-inline' key='controls' style={{ marginTop: 30 }}>
         <DxPriceControl />
         <CxPriceControl />
         <BxPriceControl />

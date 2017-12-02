@@ -1,9 +1,8 @@
-import { isLoading } from '../../reducers/firebase';
-/** Control inputs */
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { uniq } from 'lodash';
 import { filterMarket } from '../../actions/market';
+import { isLoading } from '../../reducers/firebase';
 
 interface IMarketMenuItem {
   name: TL2OnConfigItemType;
@@ -13,11 +12,11 @@ interface IMarketMenuItem {
 const MenuComponent = ({
   items,
   loading,
-  filterMarket,
+  handleFilterMarket,
 }: {
   items: IMarketMenuItem[];
   loading: boolean;
-  filterMarket: (name: TL2OnConfigFIlterType) => void;
+  handleFilterMarket: (name: TL2OnConfigFIlterType) => void;
 }) => {
   if (loading) {
     return <h3>Loading...</h3>;
@@ -29,16 +28,16 @@ const MenuComponent = ({
       <li
         key={item.name}
         className={className}
-        role="presentation"
-        onClick={() => filterMarket(item.name)}
+        role='presentation'
+        onClick={() => handleFilterMarket(item.name)}
        >
-        <a href="javascript:void(0)">{item.name}</a>
+        <a href='javascript:void(0)'>{item.name}</a>
       </li>
     );
   });
 
   return (
-    <ul className="nav nav-pills nav-justified">
+    <ul className='nav nav-pills nav-justified'>
       {menu}
     </ul>
   );
@@ -65,7 +64,7 @@ const mapStateToProps = (state: IAppState) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  filterMarket(filter: TL2OnConfigFIlterType) {
+  handleFilterMarket(filter: TL2OnConfigFIlterType) {
     dispatch(filterMarket(filter));
   },
 });

@@ -32,7 +32,35 @@ interface IL2OnCurrentPricesList {
   [key: string]: IL2OnCurrentPrices;
 }
 
+/** Crystal app typings */
+interface ICrystalsAppState {
+  loading: boolean;
+  interest: number;
+  price: {
+    D: number;
+    C: number;
+    B: number;
+  };
+  text: string;
+  items: Array<IItemCrystalsInfo>,
+}
+
+type TCrystalRank = 'A' | 'B' | 'C' | 'D';
+
+interface ICrystalInfo {
+  rank: TCrystalRank;
+  amount: number;
+}
+
+interface IItemCrystalsInfo {
+  name: string;
+  amount: number;
+  crystals: ICrystalInfo;
+}
+
 interface IAppState {
+  crystals: ICrystalsAppState;
+
   firebase: {
     loaded: boolean;
     values: {

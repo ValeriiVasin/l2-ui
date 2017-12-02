@@ -66,19 +66,19 @@ class AppComponent extends Component<IAppCliProps, any> {
 
     return (
       <form onSubmit={handleFormSubmit}>
-        <div className="u-padding">
+        <div className='u-padding'>
           <textarea
-            className="u-block u-full-width"
+            className='u-block u-full-width'
             value={command}
             onChange={handleInputChange}
             onKeyDown={handleOnKeydown}
             rows={3}
-            ref={node => this.textarea = node}
+            ref={node => this.textarea = node as HTMLTextAreaElement}
           />
 
-          <div className="u-margin-top u-margin-bottom clearfix">
-            <button className="pull-left">RUN</button>
-            <button className="pull-right" onClick={this.handleClearButtonClick}>CLEAR</button>
+          <div className='u-margin-top u-margin-bottom clearfix'>
+            <button className='pull-left'>RUN</button>
+            <button className='pull-right' onClick={this.handleClearButtonClick}>CLEAR</button>
           </div>
 
           <pre>{ getResult() }</pre>
