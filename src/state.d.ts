@@ -61,6 +61,13 @@ interface IItemCrystalsInfo {
 interface IAppState {
   crystals: ICrystalsAppState;
 
+  cli: {
+    command: string;
+    result: string;
+    loading: boolean;
+    history: string[];
+  };
+
   firebase: {
     loaded: boolean;
     values: {

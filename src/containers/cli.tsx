@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import {
   executeCommand,
   setCommand,
+  executeHistoryCommand,
 } from './../actions/cli';
 
 interface IAppCliProps {
@@ -16,6 +17,42 @@ interface IAppCliProps {
   onChange: (text: string) => void;
   onSubmit: () => void;
 }
+
+const HistoryItemComponent = ({ command, onClick }) => (
+  <div>
+    <a
+      href='javascript:void(0)'
+      key={command}
+      onClick={() => onClick(command)}
+      >
+      {command}
+    </a>
+  </div>
+);
+
+const HistoryComponent = ({ history, onItemClick }) => {
+  if (history.length === 0) {
+    return null;
+  }
+
+  const commands = history.map(
+    command => <HistoryItemComponent key={command} command={command} onClick={() => onItemClick(command)} />,
+  );
+
+  return (
+    <div className='u-magin-top'>
+      <h1>History</h1>
+      {commands}
+    </div>
+  );
+};
+
+const HistoryContainer = connect(
+  (state: IAppState) => ({ history: state.cli.history }),
+  dispatch => ({
+    onItemClick: command => dispatch(executeHistoryCommand(command)),
+  }),
+)(HistoryComponent);
 
 class AppComponent extends Component<IAppCliProps, any> {
   private textarea: HTMLElement;
@@ -82,6 +119,8 @@ class AppComponent extends Component<IAppCliProps, any> {
           </div>
 
           <pre>{ getResult() }</pre>
+
+          <HistoryContainer />
         </div>
       </form>
     );

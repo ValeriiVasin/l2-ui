@@ -1,24 +1,30 @@
 import { getAPIPath } from '../helpers';
-import {
-  CLI_COMMAND_SET,
-  CLI_LOADING_SET,
-  CLI_RESULT_SET,
-} from './types';
+import * as actions from './types';
 
 export const setLoading = state => ({
-  type: CLI_LOADING_SET,
+  type: actions.CLI_LOADING_SET,
   payload: { loading: state },
 });
 
 export const setCommand = command => ({
-  type: CLI_COMMAND_SET,
+  type: actions.CLI_COMMAND_SET,
   payload: { command },
 });
 
 const setResult = result => ({
-  type: CLI_RESULT_SET,
+  type: actions.CLI_RESULT_SET,
   payload: { result },
 });
+
+const addHistory = (command: string) => ({
+  type: actions.CLI_HISTORY_ADD,
+  command,
+});
+
+export const executeHistoryCommand = (command: string) => dispatch => {
+  dispatch(setCommand(command));
+  dispatch(executeCommand());
+};
 
 export const executeCommand = () => (dispatch, getState) => {
   const { command } = getState().cli;
@@ -35,6 +41,7 @@ export const executeCommand = () => (dispatch, getState) => {
   }).then(({ response }) => {
     dispatch(setResult(response));
     dispatch(setLoading(false));
+    dispatch(addHistory(command));
   }).fail((error: any) => {
     dispatch(setResult(`Error occured: "${error.statusText}"`));
     dispatch(setLoading(false));
