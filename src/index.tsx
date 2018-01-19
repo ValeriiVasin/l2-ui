@@ -23,7 +23,7 @@ const store = createStore(
   rootReducer,
   composeEnhancers(
     applyMiddleware(thunk, logger),
-    persistState(),
+    persistState(['market', 'cli', 'crystals']),
   ),
 );
 
