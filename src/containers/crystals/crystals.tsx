@@ -7,19 +7,39 @@ import OverviewTableContainer from './overview-table';
 
 import { Spinner } from '../../components';
 
-const CrystalsApp = ({ loading }: { loading: boolean }) => {
-  return (
-    <div className='u-padding'>
-      <Controls />
-      { loading ? <Spinner /> : null }
-      <OverviewTableContainer />
-      <DetailsTableContainer />
-    </div>
-  );
-};
+import { connectToFirebase } from '../../actions/firebase';
+
+interface ICrystalAppProps {
+  loading: boolean;
+  connectToFirebase: () => void;
+}
+
+class CrystalsApp extends React.Component<ICrystalAppProps, any> {
+  public componentDidMount() {
+    this.props.connectToFirebase();
+  }
+
+  public render() {
+    const { loading } = this.props;
+
+    return (
+      <div className='u-padding'>
+        <Controls />
+        { loading ? <Spinner /> : null }
+        <OverviewTableContainer />
+        <DetailsTableContainer />
+      </div>
+    );
+  }
+}
 
 const CrystalsAppContainer = connect(
   (state: IAppState) => ({ loading: state.crystals.loading }),
+  dispatch => ({
+    connectToFirebase: () => {
+      dispatch(connectToFirebase());
+    },
+  }),
 )(CrystalsApp);
 
 export default CrystalsAppContainer;
