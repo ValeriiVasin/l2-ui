@@ -5,11 +5,14 @@ import { connect } from 'react-redux';
 
 import { fetchItems, setInterest, setPrice, setText } from '../../actions/crystals';
 import { PriceControl } from '../../components/crystals/price-control';
+import { getMedianPrice } from '../../reducers/firebase';
 
 const createStateToProps = rank => state => {
   const price = state.crystals.price[rank];
+  const sellPrice = getMedianPrice(state, `Кристалл: Ранг ${rank}`, 'sell');
+  const buyPrice = getMedianPrice(state, `Кристалл: Ранг ${rank}`, 'buy');
 
-  return { rank, price };
+  return { rank, price, sellPrice, buyPrice };
 };
 
 const createDispatchToProps = rank => dispatch => {

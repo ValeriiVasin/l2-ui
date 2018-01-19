@@ -1,4 +1,5 @@
 import { pickBy } from 'lodash';
+import { medianPrice } from '../helpers';
 
 import {
   FIREBASE_LOADED_SET,
@@ -32,7 +33,7 @@ export const firebase = (state = INITIAL_STATE, action) => {
   return state;
 };
 
-// getters
+// selectors
 export const isLoading = state => {
   return !state.firebase.loaded;
 };
@@ -73,4 +74,31 @@ export const getBasePrices = state => {
   }
 
   return state.firebase.values.basePrices;
+};
+
+export const getL2OnItemIdByName = (state: IAppState, name: string): number => {
+  if (isLoading(state)) {
+    return -1;
+  }
+
+  const item: IL2OnConfigItem | undefined = state.firebase.values.config.l2on.find(_ => _.name === name);
+
+  if (!item) {
+    throw new Error(`Can not find l2on item with name "${name}". Please double check item name you passing.`);
+  }
+
+  return item.l2onId;
+};
+
+type TPriceType = 'buy' | 'sell';
+export const getMedianPrice = (state: IAppState, name: string, type: TPriceType) => {
+  if (isLoading(state)) {
+    return 0;
+  }
+
+  const id: number = getL2OnItemIdByName(state, name);
+  const item: IL2OnCurrentPrices = state.firebase.values.l2on.currentPrices[id];
+  const prices: IL2OnCurrentPrice[] = type === 'sell' ? item.sell : item.buy;
+
+  return prices ? medianPrice(prices) : 0;
 };
