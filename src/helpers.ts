@@ -55,7 +55,15 @@ export function getAPIPath(path: string) {
 }
 
 export function getMinutesAgo(timestamp: Date | number): number {
-  const date = typeof timestamp === 'number' ? new Date(timestamp) : timestamp;
+  let date: Date;
+
+  if (typeof timestamp === 'number') {
+    date = new Date(timestamp);
+  } else if (typeof timestamp === 'undefined') {
+    date = new Date();
+  } else {
+    date = timestamp;
+  }
 
   return Math.ceil((Date.now() - date.getTime()) / (60 * 1000));
 }
