@@ -26,7 +26,7 @@ export const MonitoringItem = ({ item, basePrice, expanded, toggle }) => {
                     <PriceTable prices={buys} limit={expanded ? 0 : 3} type='buy' median={medianBuyPrice} /> :
                     <h6>No active buyers found</h6>;
 
-  const sellToShopPrice = basePrice ? basePrice * 0.5 * 0.9 : 0;
+  const sellToShopPrice = basePrice ? basePrice * 0.5 : 0;
   const basePriceTitle = `base price: ${basePrice}; sell to shop: ${sellToShopPrice}`;
 
   return (
