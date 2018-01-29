@@ -6,7 +6,7 @@ interface IL2OnConfigItem {
 }
 
 type TL2OnConfigItemType = 'resource' | 'recipe' | 'piece' | 'enchant';
-type TL2OnConfigFIlterType = TL2OnConfigItemType | 'all' | 'favorites';
+type TL2OnConfigFilterType = TL2OnConfigItemType | 'all' | 'favorites';
 
 interface IL2OnPrice {
   name: string;
@@ -86,7 +86,7 @@ interface IAppState {
   };
 
   market: {
-    filter: TL2OnConfigFIlterType;
+    filter: TL2OnConfigFilterType;
     expandedItems: {
       [id: string]: boolean;
     }

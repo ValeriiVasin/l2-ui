@@ -1,6 +1,6 @@
 import { omit } from 'lodash';
 
-import { MARKET_FILTER_SET, MARKET_ITEM_TOGGLE } from '../actions/types';
+import { MARKET_FILTER_SET, MARKET_ITEM_TOGGLE, MARKET_ITEMS_TOGGLE } from '../actions/types';
 
 const INITIAL_STATE = {
   filter: 'favorites',
@@ -18,6 +18,21 @@ export const market = (state = INITIAL_STATE, action) => {
     return expandedItems.hasOwnProperty(id) ?
       { ...state, expandedItems: omit(expandedItems, id) } :
       { ...state, expandedItems: { ...expandedItems, [id]: true } };
+  }
+
+  if (action.type === MARKET_ITEMS_TOGGLE) {
+    const expandedItems = { ...state.expandedItems };
+
+    action.ids.forEach(id => {
+      if (action.value) {
+        expandedItems[id] = true;
+        return;
+      }
+
+      delete expandedItems[id];
+    });
+
+    return { ...state, expandedItems };
   }
 
   return state;

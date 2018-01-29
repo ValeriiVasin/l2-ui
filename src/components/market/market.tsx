@@ -3,6 +3,7 @@ import { Component } from 'react';
 import MenuContainer from '../../containers/market/menu';
 import { MonitoringItem } from './monitoring-item';
 import { getMinutesAgo } from '../../helpers';
+import { MarketControlsContainer } from '../../containers/market/controls';
 
 export class Market extends Component<any, any> {
   public componentDidMount() {
@@ -48,6 +49,7 @@ export class Market extends Component<any, any> {
       <div className='container u-padding'>
         <pre>Updated: {getMinutesAgo(new Date(l2onUpdateTime))}mins ago / {l2onUpdateTime}</pre>
         <MenuContainer />
+        <MarketControlsContainer />
         {rows}
       </div>
     );

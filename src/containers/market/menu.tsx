@@ -16,7 +16,7 @@ const MenuComponent = ({
 }: {
   items: IMarketMenuItem[];
   loading: boolean;
-  handleFilterMarket: (name: TL2OnConfigFIlterType) => void;
+  handleFilterMarket: (name: TL2OnConfigFilterType) => void;
 }) => {
   if (loading) {
     return <h3>Loading...</h3>;
@@ -64,7 +64,7 @@ const mapStateToProps = (state: IAppState) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  handleFilterMarket(filter: TL2OnConfigFIlterType) {
+  handleFilterMarket(filter: TL2OnConfigFilterType) {
     dispatch(filterMarket(filter));
   },
 });
