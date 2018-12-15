@@ -1,5 +1,7 @@
 import { getAPIPath } from '../helpers';
 import * as actions from './types';
+import { ThunkAction } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
 export const setLoading = state => ({
   type: actions.CLI_LOADING_SET,
@@ -21,7 +23,9 @@ const addHistory = (command: string) => ({
   command,
 });
 
-export const executeHistoryCommand = (command: string) => dispatch => {
+export const executeHistoryCommand = (
+  command: string,
+): ThunkAction<void, IAppState, void, AnyAction> => dispatch => {
   dispatch(setCommand(command));
   dispatch(executeCommand());
 };

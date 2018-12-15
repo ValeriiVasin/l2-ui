@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { priceToString } from '../../helpers';
 
 export const DetailsTable = ({ items, prices }) => {

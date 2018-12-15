@@ -1,10 +1,11 @@
-/** CLI App */
-import * as React from 'react';
+import React from 'react';
 import { Component } from 'react';
 
 import { connect } from 'react-redux';
 
 import { executeCommand, setCommand, executeHistoryCommand } from './../actions/cli';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
 interface IAppCliProps {
   command: string;
@@ -41,16 +42,18 @@ const HistoryComponent = ({ history, onItemClick }) => {
 
 const HistoryContainer = connect(
   (state: IAppState) => ({ history: state.cli.history }),
-  dispatch => ({
+  (dispatch: ThunkDispatch<IAppState, void, AnyAction>) => ({
     onItemClick: command => dispatch(executeHistoryCommand(command)),
   }),
 )(HistoryComponent);
 
 class AppComponent extends Component<IAppCliProps, any> {
-  private textarea: HTMLElement;
+  private textareaRef: React.RefObject<HTMLTextAreaElement> = React.createRef();
 
   public componentDidMount() {
-    this.textarea.focus();
+    if (this.textareaRef.current) {
+      this.textareaRef.current.focus();
+    }
   }
 
   public render() {
@@ -96,7 +99,7 @@ class AppComponent extends Component<IAppCliProps, any> {
             onChange={handleInputChange}
             onKeyDown={handleOnKeydown}
             rows={3}
-            ref={node => (this.textarea = node as HTMLTextAreaElement)}
+            ref={this.textareaRef}
           />
 
           <div className="u-margin-top u-margin-bottom clearfix">
@@ -117,7 +120,9 @@ class AppComponent extends Component<IAppCliProps, any> {
   private handleClearButtonClick = event => {
     event.preventDefault();
     this.props.onChange('');
-    this.textarea.focus();
+    if (this.textareaRef.current) {
+      this.textareaRef.current.focus();
+    }
   };
 }
 

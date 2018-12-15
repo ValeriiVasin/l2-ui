@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { getMinutesAgo } from '../../helpers';
 
 export const PriceRow = ({ price, amount, time, isHighlighted = false }) => {

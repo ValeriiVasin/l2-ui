@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { DetailsTable } from '../../components/crystals/details-table';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: IAppState) => {
   const items = state.crystals.items;
   const prices = state.crystals.price;
 

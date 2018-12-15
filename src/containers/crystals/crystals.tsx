@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import Controls from './controls';
@@ -8,6 +8,8 @@ import OverviewTableContainer from './overview-table';
 import { Spinner } from '../../components/spinner/spinner';
 
 import { connectToFirebase } from '../../actions/firebase';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
 interface ICrystalAppProps {
   loading: boolean;
@@ -33,13 +35,16 @@ class CrystalsApp extends React.Component<ICrystalAppProps, any> {
   }
 }
 
+const mapStateToProps = (state: IAppState) => ({ loading: state.crystals.loading });
+const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, void, AnyAction>) => ({
+  connectToFirebase: () => {
+    dispatch(connectToFirebase());
+  },
+});
+
 const CrystalsAppContainer = connect(
-  (state: IAppState) => ({ loading: state.crystals.loading }),
-  dispatch => ({
-    connectToFirebase: () => {
-      dispatch(connectToFirebase());
-    },
-  }),
+  mapStateToProps,
+  mapDispatchToProps,
 )(CrystalsApp);
 
 export default CrystalsAppContainer;

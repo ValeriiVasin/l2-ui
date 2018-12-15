@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { HashRouter as Router, Link, Route } from 'react-router-dom';
 import { applyMiddleware, compose, createStore } from 'redux';
@@ -13,8 +13,6 @@ import CrystalsApp from './containers/crystals/crystals';
 import { MarketContainer } from './containers/market';
 
 import rootReducer from './reducers';
-
-import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
 const composeEnhancers = (window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;

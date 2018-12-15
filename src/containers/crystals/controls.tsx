@@ -1,5 +1,5 @@
 /** Control inputs */
-import * as React from 'react';
+import React, { RefObject, createRef, ChangeEvent } from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -64,43 +64,44 @@ const InterestControlContainer = connect(
 )(InterestControl);
 
 class TextInputControl extends Component<any, any> {
-  private input: HTMLInputElement;
+  private inputRef: RefObject<HTMLInputElement> = createRef();
 
   public componentDidMount() {
-    this.input.focus();
+    if (this.inputRef.current) {
+      this.inputRef.current.focus();
+    }
   }
 
   public render() {
     const { text, onChange, onSubmit } = this.props;
 
-    const handleChange = event => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       onChange(event.target.value);
     };
 
     const handleSubmit = event => {
       event.preventDefault();
-      onSubmit(this.input.value);
+      onSubmit(text);
     };
 
     return (
       <form onSubmit={handleSubmit}>
-        <input
-          value={text}
-          onChange={handleChange}
-          ref={node => (this.input = node as HTMLInputElement)}
-          className="form-control"
-        />
+        <input value={text} onChange={handleChange} ref={this.inputRef} className="form-control" />
       </form>
     );
   }
 }
 
+const mapStateToProps = (state: IAppState) => ({ text: state.crystals.text });
+
+const mapDispatchToProps = dispatch => ({
+  onChange: text => dispatch(setText(text)),
+  onSubmit: text => dispatch(fetchItems(text)),
+});
+
 const TextInputContainer = connect(
-  (state: IAppState) => ({ text: state.crystals.text }),
-  dispatch => ({
-    onChange: text => dispatch(setText(text)),
-    onSubmit: text => dispatch(fetchItems(text)),
-  }),
+  mapStateToProps,
+  mapDispatchToProps,
 )(TextInputControl);
 
 export default () => {
