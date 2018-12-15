@@ -2,7 +2,7 @@ import { omit } from 'lodash';
 
 import { MARKET_FILTER_SET, MARKET_ITEM_TOGGLE, MARKET_ITEMS_TOGGLE } from '../actions/types';
 
-const INITIAL_STATE = {
+const INITIAL_STATE: AppState['market'] = {
   filter: 'favorites',
   expandedItems: {},
 };

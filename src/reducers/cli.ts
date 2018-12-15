@@ -1,7 +1,7 @@
 import * as actions from '../actions/types';
 import { uniq } from 'lodash';
 
-const INITIAL_STATE = {
+const INITIAL_STATE: AppState['cli'] = {
   command: '',
   result: '',
   loading: false,

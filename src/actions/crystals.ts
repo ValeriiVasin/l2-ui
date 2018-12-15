@@ -31,7 +31,7 @@ export const setText = text => {
   };
 };
 
-const setItems = (items: IItemCrystalsInfo[]) => ({
+const setItems = (items: ItemCrystalsInfo[]) => ({
   type: CRYSTALS_ITEMS_SET,
   payload: { items },
 });
@@ -46,7 +46,7 @@ export const fetchItems = text => dispatch => {
       format: 'jsonp',
       items: text.replace(/-{2}/g, ';'),
     },
-  }).then(({ results }: { results: IItemCrystalsInfo[] }) => {
+  }).then(({ results }: { results: ItemCrystalsInfo[] }) => {
     dispatch(setItems(results));
     dispatch(toggleLoading(false));
   });

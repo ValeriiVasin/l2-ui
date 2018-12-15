@@ -11,12 +11,12 @@ import { connectToFirebase } from '../../actions/firebase';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 
-interface ICrystalAppProps {
+interface CrystalAppProps {
   loading: boolean;
   connectToFirebase: () => void;
 }
 
-class CrystalsApp extends React.Component<ICrystalAppProps, any> {
+class CrystalsApp extends React.Component<CrystalAppProps, any> {
   public componentDidMount() {
     this.props.connectToFirebase();
   }
@@ -35,8 +35,8 @@ class CrystalsApp extends React.Component<ICrystalAppProps, any> {
   }
 }
 
-const mapStateToProps = (state: IAppState) => ({ loading: state.crystals.loading });
-const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, void, AnyAction>) => ({
+const mapStateToProps = (state: AppState) => ({ loading: state.crystals.loading });
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, void, AnyAction>) => ({
   connectToFirebase: () => {
     dispatch(connectToFirebase());
   },

@@ -6,7 +6,7 @@ import { toggleItem } from '../actions/market';
 
 import { getBasePrices, getFilteredL2OnPrices, isLoading } from '../reducers/firebase';
 
-const mapStateToProps = (state: IAppState) => {
+const mapStateToProps = (state: AppState) => {
   const loading = isLoading(state);
 
   if (loading) {

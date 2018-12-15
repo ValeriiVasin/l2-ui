@@ -1,7 +1,7 @@
 import { MARKET_FILTER_SET, MARKET_ITEM_TOGGLE, MARKET_ITEMS_TOGGLE } from './types';
 import { getFilteredItemsIds } from '../reducers/firebase';
 
-export const filterMarket = (filter: TL2OnConfigFilterType) => {
+export const filterMarket = (filter: L2OnConfigFilterType) => {
   return { type: MARKET_FILTER_SET, filter };
 };
 

@@ -1,39 +1,39 @@
-interface IL2OnConfigItem {
+interface L2OnConfigItem {
   l2onId: number;
   name: string;
   favorite?: boolean;
-  type: TL2OnConfigItemType;
+  type: L2OnConfigItemType;
 }
 
-type TL2OnConfigItemType = 'resource' | 'recipe' | 'piece' | 'enchant';
-type TL2OnConfigFilterType = TL2OnConfigItemType | 'all' | 'favorites';
+type L2OnConfigItemType = 'resource' | 'recipe' | 'piece' | 'enchant';
+type L2OnConfigFilterType = L2OnConfigItemType | 'all' | 'favorites';
 
-interface IL2OnPrice {
+interface L2OnPrice {
   name: string;
   sellPrice: number;
   buyPrice: number;
   shopPrice: number;
 }
 
-interface IL2OnCurrentPrice {
+interface L2OnCurrentPrice {
   price: number;
   amount: number;
   time: number;
   fresh: boolean;
 }
 
-interface IL2OnCurrentPrices {
+interface L2OnCurrentPrices {
   name: string;
-  sell: IL2OnCurrentPrice[];
-  buy: IL2OnCurrentPrice[];
+  sell: L2OnCurrentPrice[];
+  buy: L2OnCurrentPrice[];
 }
 
-interface IL2OnCurrentPricesList {
-  [key: string]: IL2OnCurrentPrices;
+interface L2OnCurrentPricesList {
+  [key: string]: L2OnCurrentPrices;
 }
 
 /** Crystal app typings */
-interface ICrystalsAppState {
+interface CrystalsAppState {
   loading: boolean;
   interest: number;
   price: {
@@ -42,24 +42,24 @@ interface ICrystalsAppState {
     B: number;
   };
   text: string;
-  items: Array<IItemCrystalsInfo>,
+  items: Array<ItemCrystalsInfo>,
 }
 
-type TCrystalRank = 'A' | 'B' | 'C' | 'D';
+type CrystalRank = 'A' | 'B' | 'C' | 'D';
 
-interface ICrystalInfo {
-  rank: TCrystalRank;
+interface CrystalInfo {
+  rank: CrystalRank;
   amount: number;
 }
 
-interface IItemCrystalsInfo {
+interface ItemCrystalsInfo {
   name: string;
   amount: number;
-  crystals: ICrystalInfo;
+  crystals: CrystalInfo;
 }
 
-interface IAppState {
-  crystals: ICrystalsAppState;
+interface AppState {
+  crystals: CrystalsAppState;
 
   cli: {
     command: string;
@@ -72,11 +72,11 @@ interface IAppState {
     loaded: boolean;
     values: {
       config: {
-        l2on: IL2OnConfigItem[];
+        l2on: L2OnConfigItem[];
       };
 
       l2on: {
-        currentPrices: IL2OnCurrentPricesList;
+        currentPrices: L2OnCurrentPricesList;
       };
 
       updates: {
@@ -86,7 +86,7 @@ interface IAppState {
   };
 
   market: {
-    filter: TL2OnConfigFilterType;
+    filter: L2OnConfigFilterType;
     expandedItems: {
       [id: string]: boolean;
     }

@@ -7,7 +7,7 @@ import { executeCommand, setCommand, executeHistoryCommand } from './../actions/
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 
-interface IAppCliProps {
+interface AppCliProps {
   command: string;
   loading: boolean;
   result: string;
@@ -41,13 +41,13 @@ const HistoryComponent = ({ history, onItemClick }) => {
 };
 
 const HistoryContainer = connect(
-  (state: IAppState) => ({ history: state.cli.history }),
-  (dispatch: ThunkDispatch<IAppState, void, AnyAction>) => ({
+  (state: AppState) => ({ history: state.cli.history }),
+  (dispatch: ThunkDispatch<AppState, void, AnyAction>) => ({
     onItemClick: command => dispatch(executeHistoryCommand(command)),
   }),
 )(HistoryComponent);
 
-class AppComponent extends Component<IAppCliProps, any> {
+class AppComponent extends Component<AppCliProps, any> {
   private textareaRef: React.RefObject<HTMLTextAreaElement> = React.createRef();
 
   public componentDidMount() {

@@ -4,8 +4,8 @@ import { uniq } from 'lodash';
 import { filterMarket } from '../../actions/market';
 import { isLoading } from '../../reducers/firebase';
 
-interface IMarketMenuItem {
-  name: TL2OnConfigItemType;
+interface MarketMenuItem {
+  name: L2OnConfigItemType;
   isActive: boolean;
 }
 
@@ -14,9 +14,9 @@ const MenuComponent = ({
   loading,
   handleFilterMarket,
 }: {
-  items: IMarketMenuItem[];
+  items: MarketMenuItem[];
   loading: boolean;
-  handleFilterMarket: (name: TL2OnConfigFilterType) => void;
+  handleFilterMarket: (name: L2OnConfigFilterType) => void;
 }) => {
   if (loading) {
     return <h3>Loading...</h3>;
@@ -39,7 +39,7 @@ const MenuComponent = ({
   return <ul className="nav nav-pills nav-justified">{menu}</ul>;
 };
 
-const mapStateToProps = (state: IAppState) => {
+const mapStateToProps = (state: AppState) => {
   const filter = state.market.filter;
 
   if (isLoading(state)) {
@@ -60,7 +60,7 @@ const mapStateToProps = (state: IAppState) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  handleFilterMarket(filter: TL2OnConfigFilterType) {
+  handleFilterMarket(filter: L2OnConfigFilterType) {
     dispatch(filterMarket(filter));
   },
 });

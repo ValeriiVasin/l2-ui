@@ -24,11 +24,11 @@ export function interestAmount(amount: number, interest: number) {
   return Math.ceil((amount * interest) / 100);
 }
 
-interface IL2OnPrice {
+interface L2OnPrice {
   price: number;
 }
 
-export function medianPrice(prices: IL2OnPrice[]) {
+export function medianPrice(prices: L2OnPrice[]) {
   if (prices.length === 0) {
     return 'N/A';
   }

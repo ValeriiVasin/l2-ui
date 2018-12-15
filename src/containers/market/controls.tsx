@@ -35,7 +35,7 @@ export const MarketControlsComponent = ({ isActiveOnly, handleActiveToggle, hand
   );
 };
 
-const mapStateToProps = (state: IAppState) => {
+const mapStateToProps = (state: AppState) => {
   return {
     isActiveOnly: true,
   };

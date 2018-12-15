@@ -57,7 +57,7 @@ const InterestControl = ({ interest, onChange }) => {
 };
 
 const InterestControlContainer = connect(
-  (state: IAppState) => ({ interest: state.crystals.interest }),
+  (state: AppState) => ({ interest: state.crystals.interest }),
   dispatch => ({
     onChange: value => dispatch(setInterest({ interest: value })),
   }),
@@ -92,7 +92,7 @@ class TextInputControl extends Component<any, any> {
   }
 }
 
-const mapStateToProps = (state: IAppState) => ({ text: state.crystals.text });
+const mapStateToProps = (state: AppState) => ({ text: state.crystals.text });
 
 const mapDispatchToProps = dispatch => ({
   onChange: text => dispatch(setText(text)),

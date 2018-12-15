@@ -25,7 +25,7 @@ const addHistory = (command: string) => ({
 
 export const executeHistoryCommand = (
   command: string,
-): ThunkAction<void, IAppState, void, AnyAction> => dispatch => {
+): ThunkAction<void, AppState, void, AnyAction> => dispatch => {
   dispatch(setCommand(command));
   dispatch(executeCommand());
 };
