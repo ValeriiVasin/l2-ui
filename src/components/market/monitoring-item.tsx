@@ -18,45 +18,56 @@ export const MonitoringItem = ({ item, basePrice, expanded, toggle }) => {
   const medianSellPrice = medianPrice(item.sell);
   const medianBuyPrice = medianPrice(item.buy);
 
-  const sellsTable = buys.length ?
-                    <PriceTable prices={sells} limit={expanded ? 0 : 3} type='sell' median={medianSellPrice} /> :
-                    <h6>No active sellers found</h6>;
+  const sellsTable = buys.length ? (
+    <PriceTable prices={sells} limit={expanded ? 0 : 3} type="sell" median={medianSellPrice} />
+  ) : (
+    <h6>No active sellers found</h6>
+  );
 
-  const buysTable = buys.length ?
-                    <PriceTable prices={buys} limit={expanded ? 0 : 3} type='buy' median={medianBuyPrice} /> :
-                    <h6>No active buyers found</h6>;
+  const buysTable = buys.length ? (
+    <PriceTable prices={buys} limit={expanded ? 0 : 3} type="buy" median={medianBuyPrice} />
+  ) : (
+    <h6>No active buyers found</h6>
+  );
 
   const sellToShopPrice = basePrice ? basePrice * 0.5 : 0;
   const basePriceTitle = `base price: ${basePrice}; sell to shop: ${sellToShopPrice}`;
 
   return (
     <div style={{ marginBottom: 30 }}>
-      <div className='row'>
+      <div className="row">
         <h4 style={{ display: 'inline-block', marginRight: 10 }}>
-          <a href={`http://l2on.net/?c=market&a=item&id=${item.id}`} target='_blank'>{item.name}</a>
+          <a href={`http://l2on.net/?c=market&a=item&id=${item.id}`} target="_blank">
+            {item.name}
+          </a>
         </h4>
-        <a href={`https://l2central.info/classic/${item.name}`} target='_blank'>
+        <a href={`https://l2central.info/classic/${item.name}`} target="_blank">
           <small>central</small>
         </a>
-        <span
-          style={{ display: 'inline-block', marginLeft: 10 }}
-          title={basePriceTitle}
-          >{sellToShopPrice}</span>
+        <span style={{ display: 'inline-block', marginLeft: 10 }} title={basePriceTitle}>
+          {sellToShopPrice}
+        </span>
         <a
           style={{ display: 'inline-block', marginLeft: 10 }}
-          href='javascript:void(0)'
+          href="javascript:void(0)"
           onClick={() => toggle(item.id)}
-          >{ expanded ? 'collapse' : 'expand' }</a>
+        >
+          {expanded ? 'collapse' : 'expand'}
+        </a>
       </div>
 
-      <div className='row'>
-        <div className='col-xs-6'>Median: {medianSellPrice} ({item.sell.length})</div>
-        <div className='col-xs-6'>Median: {medianBuyPrice} ({item.buy.length})</div>
+      <div className="row">
+        <div className="col-xs-6">
+          Median: {medianSellPrice} ({item.sell.length})
+        </div>
+        <div className="col-xs-6">
+          Median: {medianBuyPrice} ({item.buy.length})
+        </div>
       </div>
 
-      <div className='row'>
-        <div className='col-xs-6'>{sellsTable}</div>
-        <div className='col-xs-6'>{buysTable}</div>
+      <div className="row">
+        <div className="col-xs-6">{sellsTable}</div>
+        <div className="col-xs-6">{buysTable}</div>
       </div>
     </div>
   );

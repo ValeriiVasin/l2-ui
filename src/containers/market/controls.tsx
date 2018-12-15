@@ -4,29 +4,35 @@ import { connect } from 'react-redux';
 import { toggleItems } from '../../actions/market';
 
 export const MarketControlsComponent = ({ isActiveOnly, handleActiveToggle, handleToggle }) => {
-  return <div>
-    <a
-      href='javascript:void(0)'
-      className='u-inline-block u-padding'
-      onClick={() => handleToggle(true)}
-      >Expand all</a>
-    <a
-      href='javascript:void(0)'
-      className='u-inline-block u-padding'
-      onClick={() => handleToggle(false)}
-      >Collapse all</a>
+  return (
+    <div>
+      <a
+        href="javascript:void(0)"
+        className="u-inline-block u-padding"
+        onClick={() => handleToggle(true)}
+      >
+        Expand all
+      </a>
+      <a
+        href="javascript:void(0)"
+        className="u-inline-block u-padding"
+        onClick={() => handleToggle(false)}
+      >
+        Collapse all
+      </a>
 
-    <div className='u-inline-block'>
-      <input
-        type='checkbox'
-        name='active-only'
-        id='active-only'
-        checked={isActiveOnly}
-        onChange={() => handleActiveToggle(!isActiveOnly)}
+      <div className="u-inline-block">
+        <input
+          type="checkbox"
+          name="active-only"
+          id="active-only"
+          checked={isActiveOnly}
+          onChange={() => handleActiveToggle(!isActiveOnly)}
         />
-      <label htmlFor='active-only'>Active only</label>
+        <label htmlFor="active-only">Active only</label>
+      </div>
     </div>
-  </div>;
+  );
 };
 
 const mapStateToProps = (state: IAppState) => {
@@ -45,4 +51,7 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export const MarketControlsContainer = connect(mapStateToProps, mapDispatchToProps)(MarketControlsComponent);
+export const MarketControlsContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MarketControlsComponent);

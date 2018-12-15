@@ -1,10 +1,7 @@
 import { pickBy } from 'lodash';
 import { medianPrice } from '../helpers';
 
-import {
-  FIREBASE_LOADED_SET,
-  FIREBASE_VALUES_SET,
-} from '../actions/types';
+import { FIREBASE_LOADED_SET, FIREBASE_VALUES_SET } from '../actions/types';
 
 const INITIAL_STATE = {
   loaded: false,
@@ -87,10 +84,14 @@ export const getL2OnItemIdByName = (state: IAppState, name: string): number => {
     return -1;
   }
 
-  const item: IL2OnConfigItem | undefined = state.firebase.values.config.l2on.find(_ => _.name === name);
+  const item: IL2OnConfigItem | undefined = state.firebase.values.config.l2on.find(
+    _ => _.name === name,
+  );
 
   if (!item) {
-    throw new Error(`Can not find l2on item with name "${name}". Please double check item name you passing.`);
+    throw new Error(
+      `Can not find l2on item with name "${name}". Please double check item name you passing.`,
+    );
   }
 
   return item.l2onId;

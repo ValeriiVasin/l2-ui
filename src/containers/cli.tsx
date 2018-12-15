@@ -4,11 +4,7 @@ import { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import {
-  executeCommand,
-  setCommand,
-  executeHistoryCommand,
-} from './../actions/cli';
+import { executeCommand, setCommand, executeHistoryCommand } from './../actions/cli';
 
 interface IAppCliProps {
   command: string;
@@ -20,11 +16,7 @@ interface IAppCliProps {
 
 const HistoryItemComponent = ({ command, onClick }) => (
   <div>
-    <a
-      href='javascript:void(0)'
-      key={command}
-      onClick={() => onClick(command)}
-      >
+    <a href="javascript:void(0)" key={command} onClick={() => onClick(command)}>
       {command}
     </a>
   </div>
@@ -35,12 +27,12 @@ const HistoryComponent = ({ history, onItemClick }) => {
     return null;
   }
 
-  const commands = history.map(
-    command => <HistoryItemComponent key={command} command={command} onClick={() => onItemClick(command)} />,
-  );
+  const commands = history.map(command => (
+    <HistoryItemComponent key={command} command={command} onClick={() => onItemClick(command)} />
+  ));
 
   return (
-    <div className='u-magin-top'>
+    <div className="u-magin-top">
       <h1>History</h1>
       {commands}
     </div>
@@ -62,13 +54,7 @@ class AppComponent extends Component<IAppCliProps, any> {
   }
 
   public render() {
-    const {
-      command,
-      loading,
-      result,
-      onChange,
-      onSubmit,
-    } = this.props;
+    const { command, loading, result, onChange, onSubmit } = this.props;
 
     const handleInputChange = (event: any) => {
       event.preventDefault();
@@ -103,22 +89,24 @@ class AppComponent extends Component<IAppCliProps, any> {
 
     return (
       <form onSubmit={handleFormSubmit}>
-        <div className='u-padding'>
+        <div className="u-padding">
           <textarea
-            className='u-block u-full-width'
+            className="u-block u-full-width"
             value={command}
             onChange={handleInputChange}
             onKeyDown={handleOnKeydown}
             rows={3}
-            ref={node => this.textarea = node as HTMLTextAreaElement}
+            ref={node => (this.textarea = node as HTMLTextAreaElement)}
           />
 
-          <div className='u-margin-top u-margin-bottom clearfix'>
-            <button className='pull-left'>RUN</button>
-            <button className='pull-right' onClick={this.handleClearButtonClick}>CLEAR</button>
+          <div className="u-margin-top u-margin-bottom clearfix">
+            <button className="pull-left">RUN</button>
+            <button className="pull-right" onClick={this.handleClearButtonClick}>
+              CLEAR
+            </button>
           </div>
 
-          <pre>{ getResult() }</pre>
+          <pre>{getResult()}</pre>
 
           <HistoryContainer />
         </div>
@@ -130,15 +118,11 @@ class AppComponent extends Component<IAppCliProps, any> {
     event.preventDefault();
     this.props.onChange('');
     this.textarea.focus();
-  }
+  };
 }
 
 const mapStateToProps = state => {
-  const {
-    command,
-    result,
-    loading,
-   } = state.cli;
+  const { command, result, loading } = state.cli;
 
   return {
     command,

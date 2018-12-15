@@ -5,7 +5,7 @@ import Controls from './controls';
 import DetailsTableContainer from './details-table';
 import OverviewTableContainer from './overview-table';
 
-import { Spinner } from '../../components';
+import { Spinner } from '../../components/spinner/spinner';
 
 import { connectToFirebase } from '../../actions/firebase';
 
@@ -23,9 +23,9 @@ class CrystalsApp extends React.Component<ICrystalAppProps, any> {
     const { loading } = this.props;
 
     return (
-      <div className='u-padding'>
+      <div className="u-padding">
         <Controls />
-        { loading ? <Spinner /> : null }
+        {loading ? <Spinner /> : null}
         <OverviewTableContainer />
         <DetailsTableContainer />
       </div>

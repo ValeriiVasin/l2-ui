@@ -38,12 +38,14 @@ export const executeCommand = () => (dispatch, getState) => {
       format: 'jsonp',
       command,
     },
-  }).then(({ response }) => {
-    dispatch(setResult(response));
-    dispatch(setLoading(false));
-    dispatch(addHistory(command));
-  }).fail((error: any) => {
-    dispatch(setResult(`Error occured: "${error.statusText}"`));
-    dispatch(setLoading(false));
-  });
+  })
+    .then(({ response }) => {
+      dispatch(setResult(response));
+      dispatch(setLoading(false));
+      dispatch(addHistory(command));
+    })
+    .fail((error: any) => {
+      dispatch(setResult(`Error occured: "${error.statusText}"`));
+      dispatch(setLoading(false));
+    });
 };

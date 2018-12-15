@@ -6,7 +6,7 @@ export const PriceRow = ({ price, amount, time, isHighlighted = false }) => {
   const highlightedStyle = { backgroundColor: 'green', color: 'white' };
 
   return (
-    <tr style={ isHighlighted ? highlightedStyle : {} }>
+    <tr style={isHighlighted ? highlightedStyle : {}}>
       <td>{price}</td>
       <td>{amount}</td>
       <td>{minsAgo} min</td>

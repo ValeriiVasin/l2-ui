@@ -14,6 +14,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-)(OverviewTable as any);
+export default connect(mapStateToProps)(OverviewTable as any);

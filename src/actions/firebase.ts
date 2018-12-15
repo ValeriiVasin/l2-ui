@@ -1,10 +1,7 @@
 import * as firebase from 'firebase';
 import * as once from 'lodash/once';
 
-import {
-  FIREBASE_LOADED_SET,
-  FIREBASE_VALUES_SET,
-} from './types';
+import { FIREBASE_LOADED_SET, FIREBASE_VALUES_SET } from './types';
 
 const connect = once(() => {
   // Initialize Firebase
@@ -31,7 +28,9 @@ const setLoaded = () => ({ type: FIREBASE_LOADED_SET });
 export const connectToFirebase = () => dispatch => {
   connect();
 
-  firebase.database().ref('/')
+  firebase
+    .database()
+    .ref('/')
     .on('value', snapshot => {
       if (!snapshot) {
         return;

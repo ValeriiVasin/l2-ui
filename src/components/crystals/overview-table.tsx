@@ -69,10 +69,10 @@ export default ({ interest, items, prices }) => {
   });
 
   return (
-    <div key='overview'>
+    <div key="overview">
       <h1>Overview Table</h1>
       {getStatusString(results, prices, interest)}
-      <table className='table'>
+      <table className="table">
         <tbody>
           {headers}
           {rows}

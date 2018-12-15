@@ -21,7 +21,7 @@ export function priceToString(price: number) {
 }
 
 export function interestAmount(amount: number, interest: number) {
-  return Math.ceil(amount * interest / 100);
+  return Math.ceil((amount * interest) / 100);
 }
 
 interface IL2OnPrice {

@@ -15,9 +15,9 @@ export const market = (state = INITIAL_STATE, action) => {
   if (action.type === MARKET_ITEM_TOGGLE) {
     const id = action.id;
     const expandedItems = state.expandedItems;
-    return expandedItems.hasOwnProperty(id) ?
-      { ...state, expandedItems: omit(expandedItems, id) } :
-      { ...state, expandedItems: { ...expandedItems, [id]: true } };
+    return expandedItems.hasOwnProperty(id)
+      ? { ...state, expandedItems: omit(expandedItems, id) }
+      : { ...state, expandedItems: { ...expandedItems, [id]: true } };
   }
 
   if (action.type === MARKET_ITEMS_TOGGLE) {

@@ -21,10 +21,7 @@ const composeEnhancers = (window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
 
 const store = createStore(
   rootReducer,
-  composeEnhancers(
-    applyMiddleware(thunk, logger),
-    persistState(['market', 'cli', 'crystals']),
-  ),
+  composeEnhancers(applyMiddleware(thunk, logger), persistState(['market', 'cli', 'crystals'])),
 );
 
 const App = () => {
@@ -32,22 +29,22 @@ const App = () => {
     <Router>
       <div>
         <div>
-          <div className='u-inline-block u-padding'>
+          <div className="u-inline-block u-padding">
             <Link to={'/'}>Market</Link>
           </div>
-          <div className='u-inline-block u-padding'>
+          <div className="u-inline-block u-padding">
             <Link to={'/cry'}>Crystals</Link>
           </div>
-          <div className='u-inline-block u-padding'>
+          <div className="u-inline-block u-padding">
             <Link to={'/cli'}>CLI</Link>
           </div>
         </div>
 
         <Provider store={store}>
           <div>
-            <Route path='/' exact={true} component={MarketContainer as any} />
-            <Route path='/cli' component={CLIApp as any} />
-            <Route path='/cry' component={CrystalsApp as any} />
+            <Route path="/" exact={true} component={MarketContainer as any} />
+            <Route path="/cli" component={CLIApp as any} />
+            <Route path="/cry" component={CrystalsApp as any} />
           </div>
         </Provider>
       </div>

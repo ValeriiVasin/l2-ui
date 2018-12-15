@@ -12,6 +12,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-)(DetailsTable as any);
+export default connect(mapStateToProps)(DetailsTable as any);

@@ -11,18 +11,11 @@ export class Market extends Component<any, any> {
   }
 
   public render() {
-    const {
-      items,
-      basePrices,
-      loading,
-      expandedItems,
-      toggle,
-      l2onUpdateTime,
-    } = this.props;
+    const { items, basePrices, loading, expandedItems, toggle, l2onUpdateTime } = this.props;
 
     if (loading) {
       return (
-        <div className='u-padding'>
+        <div className="u-padding">
           <h1>Loading...</h1>
         </div>
       );
@@ -46,8 +39,10 @@ export class Market extends Component<any, any> {
     });
 
     return (
-      <div className='container u-padding'>
-        <pre>Updated: {getMinutesAgo(new Date(l2onUpdateTime))}mins ago / {l2onUpdateTime}</pre>
+      <div className="container u-padding">
+        <pre>
+          Updated: {getMinutesAgo(new Date(l2onUpdateTime))}mins ago / {l2onUpdateTime}
+        </pre>
         <MenuContainer />
         <MarketControlsContainer />
         {rows}

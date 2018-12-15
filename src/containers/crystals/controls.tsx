@@ -37,22 +37,20 @@ export const BxPriceControl = connect(
 )(PriceControl);
 
 const normalizeOnChange = onChange => event => {
-  onChange(
-    Number(event.target.value.trim()),
-  );
+  onChange(Number(event.target.value.trim()));
 };
 
 const InterestControl = ({ interest, onChange }) => {
   return (
-    <div className='form-group' style={{ width: 200, marginRight: 30 }}>
-      <div className='input-group'>
+    <div className="form-group" style={{ width: 200, marginRight: 30 }}>
+      <div className="input-group">
         <input
-          className='form-control'
-          placeholder='interest percentage'
+          className="form-control"
+          placeholder="interest percentage"
           value={interest}
           onChange={normalizeOnChange(onChange)}
-          />
-        <div className='input-group-addon'>%</div>
+        />
+        <div className="input-group-addon">%</div>
       </div>
     </div>
   );
@@ -73,11 +71,7 @@ class TextInputControl extends Component<any, any> {
   }
 
   public render() {
-    const {
-      text,
-      onChange,
-      onSubmit,
-    } = this.props;
+    const { text, onChange, onSubmit } = this.props;
 
     const handleChange = event => {
       onChange(event.target.value);
@@ -93,8 +87,8 @@ class TextInputControl extends Component<any, any> {
         <input
           value={text}
           onChange={handleChange}
-          ref={node => this.input = node as HTMLInputElement}
-          className='form-control'
+          ref={node => (this.input = node as HTMLInputElement)}
+          className="form-control"
         />
       </form>
     );
@@ -114,7 +108,7 @@ export default () => {
     <div>
       <TextInputContainer />
 
-      <form className='form-inline' key='controls' style={{ marginTop: 30 }}>
+      <form className="form-inline" key="controls" style={{ marginTop: 30 }}>
         <DxPriceControl />
         <CxPriceControl />
         <BxPriceControl />

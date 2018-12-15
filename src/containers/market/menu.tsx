@@ -28,19 +28,15 @@ const MenuComponent = ({
       <li
         key={item.name}
         className={className}
-        role='presentation'
+        role="presentation"
         onClick={() => handleFilterMarket(item.name)}
-       >
-        <a href='javascript:void(0)'>{item.name}</a>
+      >
+        <a href="javascript:void(0)">{item.name}</a>
       </li>
     );
   });
 
-  return (
-    <ul className='nav nav-pills nav-justified'>
-      {menu}
-    </ul>
-  );
+  return <ul className="nav nav-pills nav-justified">{menu}</ul>;
 };
 
 const mapStateToProps = (state: IAppState) => {
@@ -69,4 +65,7 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuComponent);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MenuComponent);
