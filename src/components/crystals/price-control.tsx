@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { ChangeEvent, SFC } from 'react';
 
-const normalizeOnChange = onChange => event => {
+const normalizeOnChange = (onChange: (price: number) => void) => (
+  event: ChangeEvent<HTMLInputElement>,
+) => {
   onChange(Number(event.target.value.trim()));
 };
 
-export const PriceControl = ({ rank, price, onChange, sellPrice, buyPrice }) => {
+export const PriceControl: SFC<{
+  rank: CrystalRank;
+  price: number;
+  sellPrice: number | string;
+  buyPrice: number | string;
+  onChange: (price: number) => void;
+}> = ({ rank, price, onChange, sellPrice, buyPrice }) => {
   const label = `${rank.toUpperCase()}x`;
   const placeholder = `${label} price`;
 

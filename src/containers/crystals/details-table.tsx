@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 
 import { DetailsTable } from '../../components/crystals/details-table';
+import { ComponentProps, forwardRef } from 'react';
 
-const mapStateToProps = (state: AppState) => {
+const mapStateToProps = (state: AppState): ComponentProps<typeof DetailsTable> => {
   const items = state.crystals.items;
   const prices = state.crystals.price;
 
@@ -12,4 +13,4 @@ const mapStateToProps = (state: AppState) => {
   };
 };
 
-export default connect(mapStateToProps)(DetailsTable as any);
+export default connect(mapStateToProps)(DetailsTable);

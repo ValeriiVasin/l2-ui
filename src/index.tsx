@@ -40,9 +40,9 @@ const App = () => {
 
         <Provider store={store}>
           <div>
-            <Route path="/" exact={true} component={MarketContainer as any} />
-            <Route path="/cli" component={CLIApp as any} />
-            <Route path="/cry" component={CrystalsApp as any} />
+            <Route path="/" exact={true} component={MarketContainer} />
+            <Route path="/cli" component={CLIApp} />
+            <Route path="/cry" component={CrystalsApp} />
           </div>
         </Provider>
       </div>

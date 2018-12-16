@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { SFC } from 'react';
 import { priceToString } from '../../helpers';
 
-export const DetailsTable = ({ items, prices }) => {
+export const DetailsTable: SFC<{ items: ItemCrystalsInfo[]; prices: CryDictionary }> = ({
+  items,
+  prices,
+}) => {
   if (items.length === 0) {
     return null;
   }
