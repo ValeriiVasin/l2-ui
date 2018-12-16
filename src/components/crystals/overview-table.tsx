@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { SFC } from 'react';
 
 import { interestAmount, priceToString } from '../../helpers';
 
-const getStatusString = (results, prices, interest) => {
+export interface StateProps {
+  prices: AppState['crystals']['price'];
+  items: ItemCrystalsInfo[];
+  interest: number;
+}
+
+const Status: SFC<{
+  results: CryDictionary;
+  prices: AppState['crystals']['price'];
+  interest: number;
+}> = ({ results, prices, interest }) => {
   let totalPrice = 0;
   let totalReturn = '';
 
-  const availableRanks = Object.keys(results);
+  const availableRanks = Object.keys(results) as CrystalRank[];
 
   availableRanks.forEach(rank => {
     const rankPrice = prices[rank];
@@ -25,23 +35,26 @@ const getStatusString = (results, prices, interest) => {
   );
 };
 
-export default ({ interest, items, prices }) => {
+export const OverviewTable: SFC<StateProps> = ({ interest, items, prices }) => {
   if (items.length === 0) {
     return null;
   }
 
-  const results = items.reduce((acc, item) => {
-    const itemsAmount = item.amount;
-    const cryAmount = item.crystals.amount;
-    const cryRank = item.crystals.rank;
+  const results: CryDictionary = items.reduce<CryDictionary>(
+    (acc, item) => {
+      const itemsAmount = item.amount;
+      const cryAmount = item.crystals.amount;
+      const cryRank = item.crystals.rank;
 
-    const cryTotal = cryAmount * itemsAmount;
-    acc[cryRank] = (acc[cryRank] || 0) + cryTotal;
+      const cryTotal = cryAmount * itemsAmount;
+      acc[cryRank] = (acc[cryRank] || 0) + cryTotal;
 
-    return acc;
-  }, {});
+      return acc;
+    },
+    {} as CryDictionary,
+  );
 
-  const availableRanks = Object.keys(results).sort();
+  const availableRanks = Object.keys(results).sort() as CrystalRank[];
 
   const headers = (
     <tr>
@@ -71,7 +84,7 @@ export default ({ interest, items, prices }) => {
   return (
     <div key="overview">
       <h1>Overview Table</h1>
-      {getStatusString(results, prices, interest)}
+      <Status results={results} prices={prices} interest={interest} />
       <table className="table">
         <tbody>
           {headers}

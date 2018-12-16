@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 
-import OverviewTable from '../../components/crystals/overview-table';
+import { OverviewTable, StateProps } from '../../components/crystals/overview-table';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: AppState): StateProps => {
   const items = state.crystals.items;
   const prices = state.crystals.price;
   const interest = state.crystals.interest;
@@ -14,4 +14,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(OverviewTable as any);
+export default connect(mapStateToProps)(OverviewTable);

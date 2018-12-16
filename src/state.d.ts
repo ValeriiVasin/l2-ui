@@ -32,20 +32,17 @@ interface L2OnCurrentPricesList {
   [key: string]: L2OnCurrentPrices;
 }
 
+type CrystalRank = 'A' | 'B' | 'C' | 'D';
+type CryDictionary = { [key in CrystalRank]: number };
+
 /** Crystal app typings */
 interface CrystalsAppState {
   loading: boolean;
   interest: number;
-  price: {
-    D: number;
-    C: number;
-    B: number;
-  };
+  price: CryDictionary;
   text: string;
   items: Array<ItemCrystalsInfo>;
 }
-
-type CrystalRank = 'A' | 'B' | 'C' | 'D';
 
 interface CrystalInfo {
   rank: CrystalRank;

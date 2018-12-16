@@ -1,20 +1,15 @@
 import { connect } from 'react-redux';
 
 import { connectToFirebase } from '../actions/firebase';
-import { Market } from '../components/market/market';
+import { Market, StateProps, DispatchProps } from '../components/market/market';
 import { toggleItem } from '../actions/market';
 
 import { getBasePrices, getFilteredL2OnPrices, isLoading } from '../reducers/firebase';
+import { bindActionCreators, AnyAction } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 
-const mapStateToProps = (state: AppState) => {
+const mapStateToProps = (state: AppState): StateProps => {
   const loading = isLoading(state);
-
-  if (loading) {
-    return {
-      loading,
-    };
-  }
-
   const items = getFilteredL2OnPrices(state);
   const basePrices = getBasePrices(state);
   const expandedItems = state.market.expandedItems;
@@ -29,12 +24,14 @@ const mapStateToProps = (state: AppState) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    connectToFirebase: () => dispatch(connectToFirebase()),
-    toggle: id => dispatch(toggleItem(id)),
-  };
-};
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, void, AnyAction>): DispatchProps =>
+  bindActionCreators(
+    {
+      connectToFirebase,
+      toggle: toggleItem,
+    },
+    dispatch,
+  );
 
 export const MarketContainer = connect(
   mapStateToProps,

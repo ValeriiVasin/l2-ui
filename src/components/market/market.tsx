@@ -4,8 +4,26 @@ import MenuContainer from '../../containers/market/menu';
 import { MonitoringItem } from './monitoring-item';
 import { getMinutesAgo } from '../../helpers';
 import { MarketControlsContainer } from '../../containers/market/controls';
+import { Dictionary } from 'lodash';
 
-export class Market extends Component<any, any> {
+export interface StateProps {
+  items: Dictionary<L2OnCurrentPrices>;
+  basePrices: {
+    [name: string]: number;
+  };
+  loading: boolean;
+  expandedItems: {
+    [id: string]: boolean;
+  };
+  l2onUpdateTime: string;
+}
+
+export interface DispatchProps {
+  connectToFirebase: () => void;
+  toggle: (id: number) => void;
+}
+
+export class Market extends Component<StateProps & DispatchProps> {
   public componentDidMount() {
     this.props.connectToFirebase();
   }

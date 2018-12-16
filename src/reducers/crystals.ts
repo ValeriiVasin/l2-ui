@@ -9,6 +9,7 @@ const INITIAL_STATE: AppState['crystals'] = {
     D: 400,
     C: 1600,
     B: 3800,
+    A: 6000,
   },
   text: '',
   items: [],
