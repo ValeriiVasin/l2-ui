@@ -1,15 +1,38 @@
-import { MARKET_FILTER_SET, MARKET_ITEM_TOGGLE, MARKET_ITEMS_TOGGLE } from './types';
+import { ActionTypes } from './types';
 import { getFilteredItemsIds } from '../reducers/firebase';
+import { ThunkAction } from 'redux-thunk';
+import { Action } from 'redux';
 
-export const filterMarket = (filter: L2OnConfigFilterType) => {
-  return { type: MARKET_FILTER_SET, filter };
+export type MarketActions = FilterMarketAction | ToggleMarketItemAction | ToggleMarketItemsActions;
+export type MarketAsyncActions = ToggleMarketItemsAsyncAction;
+
+interface FilterMarketAction extends Action<ActionTypes.MarketFilterSet> {
+  filter: L2OnConfigFilterType;
+}
+
+export const filterMarket = (filter: L2OnConfigFilterType): FilterMarketAction => {
+  return { type: ActionTypes.MarketFilterSet, filter };
 };
 
-export const toggleItem = (id: number) => {
-  return { type: MARKET_ITEM_TOGGLE, id };
+interface ToggleMarketItemAction extends Action<ActionTypes.MarketItemToggle> {
+  id: number;
+}
+
+export const toggleItem = (id: number): ToggleMarketItemAction => {
+  return { type: ActionTypes.MarketItemToggle, id };
 };
 
-export const toggleItems = (value: boolean) => (dispatch, getState) => {
+interface ToggleMarketItemsActions extends Action<ActionTypes.MarketItemsToggle> {
+  ids: number[];
+  value: boolean;
+}
+
+type ToggleMarketItemsAsyncAction = ThunkAction<void, AppState, void, ToggleMarketItemsActions>;
+
+export const toggleItems = (value: boolean): ToggleMarketItemsAsyncAction => (
+  dispatch,
+  getState,
+) => {
   const ids = getFilteredItemsIds(getState());
-  dispatch({ type: MARKET_ITEMS_TOGGLE, ids, value });
+  dispatch({ type: ActionTypes.MarketItemsToggle, ids, value });
 };
