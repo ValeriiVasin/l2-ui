@@ -1,11 +1,9 @@
-import React from 'react';
-import { Component } from 'react';
-
+import React, { Component, MouseEvent, SFC, KeyboardEvent } from 'react';
+import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
 
 import { executeCommand, setCommand, executeHistoryCommand } from './../actions/cli';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
 
 interface AppCliProps {
   command: string;
@@ -15,7 +13,10 @@ interface AppCliProps {
   onSubmit: () => void;
 }
 
-const HistoryItemComponent = ({ command, onClick }) => (
+const HistoryItemComponent: SFC<{ command: string; onClick: (command: string) => void }> = ({
+  command,
+  onClick,
+}) => (
   <div>
     <a href="javascript:void(0)" key={command} onClick={() => onClick(command)}>
       {command}
@@ -23,7 +24,10 @@ const HistoryItemComponent = ({ command, onClick }) => (
   </div>
 );
 
-const HistoryComponent = ({ history, onItemClick }) => {
+const HistoryComponent: SFC<{ history: string[]; onItemClick: (command: string) => void }> = ({
+  history,
+  onItemClick,
+}) => {
   if (history.length === 0) {
     return null;
   }
@@ -43,7 +47,7 @@ const HistoryComponent = ({ history, onItemClick }) => {
 const HistoryContainer = connect(
   (state: AppState) => ({ history: state.cli.history }),
   (dispatch: ThunkDispatch<AppState, void, AnyAction>) => ({
-    onItemClick: command => dispatch(executeHistoryCommand(command)),
+    onItemClick: (command: string) => dispatch(executeHistoryCommand(command)),
   }),
 )(HistoryComponent);
 
@@ -81,7 +85,7 @@ class AppComponent extends Component<AppCliProps, any> {
       return 'Start typing the command...';
     };
 
-    const handleOnKeydown = event => {
+    const handleOnKeydown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
       const isMetaOrCtrlKey = event.metaKey || event.ctrlKey;
       const isEnterKey = event.which === 13;
 
@@ -117,7 +121,7 @@ class AppComponent extends Component<AppCliProps, any> {
     );
   }
 
-  private handleClearButtonClick = event => {
+  private handleClearButtonClick = (event: MouseEvent) => {
     event.preventDefault();
     this.props.onChange('');
     if (this.textareaRef.current) {
@@ -126,7 +130,7 @@ class AppComponent extends Component<AppCliProps, any> {
   };
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: AppState) => {
   const { command, result, loading } = state.cli;
 
   return {
@@ -136,9 +140,9 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, void, AnyAction>) => {
   return {
-    onChange: value => dispatch(setCommand(value)),
+    onChange: (value: string) => dispatch(setCommand(value)),
     onSubmit: () => dispatch(executeCommand()),
   };
 };
