@@ -1,36 +1,61 @@
 import { getAPIPath } from '../helpers';
-import * as actions from './types';
+import { ActionTypes } from './types';
 import { ThunkAction } from 'redux-thunk';
-import { AnyAction } from 'redux';
+import { Action } from 'redux';
 
-export const setLoading = state => ({
-  type: actions.CLI_LOADING_SET,
+export type CliAction = SetLoadingAction | SetCommandAction | SetResultAction | AddHistoryAction;
+
+interface SetLoadingAction extends Action<ActionTypes.CliLoadingSet> {
+  payload: { loading: boolean };
+}
+
+export const setLoading = (state: boolean): SetLoadingAction => ({
+  type: ActionTypes.CliLoadingSet,
   payload: { loading: state },
 });
 
-export const setCommand = command => ({
-  type: actions.CLI_COMMAND_SET,
+interface SetCommandAction extends Action<ActionTypes.CliCommandSet> {
+  payload: { command: string };
+}
+
+export const setCommand = (command: string): SetCommandAction => ({
+  type: ActionTypes.CliCommandSet,
   payload: { command },
 });
 
-const setResult = result => ({
-  type: actions.CLI_RESULT_SET,
+interface SetResultAction extends Action<ActionTypes.CliResultSet> {
+  payload: { result: string };
+}
+
+const setResult = (result: string): SetResultAction => ({
+  type: ActionTypes.CliResultSet,
   payload: { result },
 });
 
-const addHistory = (command: string) => ({
-  type: actions.CLI_HISTORY_ADD,
-  command,
+interface AddHistoryAction extends Action<ActionTypes.CliHistoryAdd> {
+  payload: { command: string };
+}
+
+const addHistory = (command: string): AddHistoryAction => ({
+  type: ActionTypes.CliHistoryAdd,
+  payload: { command },
 });
 
-export const executeHistoryCommand = (
-  command: string,
-): ThunkAction<void, AppState, void, AnyAction> => dispatch => {
+type ExecuteHistoryCommandAction = ThunkAction<void, AppState, void, SetCommandAction>;
+
+export const executeHistoryCommand = (command: string): ExecuteHistoryCommandAction => dispatch => {
   dispatch(setCommand(command));
   dispatch(executeCommand());
 };
 
-export const executeCommand = () => (dispatch, getState) => {
+type ExecuteCommandAction = ThunkAction<
+  void,
+  AppState,
+  void,
+  SetLoadingAction | SetResultAction | AddHistoryAction
+>;
+
+export const executeCommand = (): ExecuteCommandAction => (dispatch, getState) => {
   const { command } = getState().cli;
 
   dispatch(setLoading(true));

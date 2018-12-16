@@ -11,7 +11,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noImplicitAny": false, // TODO: fix me
+    "noImplicitAny": true, // TODO: fix me
     "noEmit": true,
     "jsx": "preserve",
     // include es2015 to support string#includes,startsWith

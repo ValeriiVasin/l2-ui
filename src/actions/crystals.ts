@@ -1,13 +1,7 @@
 /* global $ */
 
 import { getAPIPath } from '../helpers';
-import {
-  CRYSTALS_INTEREST_SET,
-  CRYSTALS_ITEMS_SET,
-  CRYSTALS_LOADING_TOGGLE,
-  CRYSTALS_PRICE_SET,
-  CRYSTALS_TEXT_SET,
-} from './types';
+import { ActionTypes } from './types';
 
 const toggleLoading = value => ({
   type: CRYSTALS_LOADING_TOGGLE,

@@ -15,3 +15,23 @@ export const CLI_HISTORY_ADD = 'CLI_HISTORY_ADD';
 export const MARKET_FILTER_SET = 'MARKET_FILTER_SET';
 export const MARKET_ITEM_TOGGLE = 'MARKET_ITEM_TOGGLE';
 export const MARKET_ITEMS_TOGGLE = 'MARKET_ITEMS_TOGGLE';
+
+export enum ActionTypes {
+  CrystalsLoadingToggle = 'CRYSTALS_LOADING_TOGGLE',
+  CrystalsInterestSet = 'CRYSTALS_INTEREST_SET',
+  CrystalsPriceSet = 'CRYSTALS_PRICE_SET',
+  CrystalsItemsSet = 'CRYSTALS_ITEMS_SET',
+  CrystalsTextSet = 'CRYSTALS_TEXT_SET',
+
+  FirebaseValuesSet = 'FIREBASE_VALUES_SET',
+  FirebaseLoadedSet = 'FIREBASE_LOADED_SET',
+
+  CliCommandSet = 'CLI_COMMAND_SET',
+  CliLoadingSet = 'CLI_LOADING_SET',
+  CliResultSet = 'CLI_RESULT_SET',
+  CliHistoryAdd = 'CLI_HISTORY_ADD',
+
+  MarketFilterSet = 'MARKET_FILTER_SET',
+  MarketItemToggle = 'MARKET_ITEM_TOGGLE',
+  MarketItemsToggle = 'MARKET_ITEMS_TOGGLE',
+}

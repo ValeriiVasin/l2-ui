@@ -1,5 +1,7 @@
-import * as actions from '../actions/types';
 import { uniq } from 'lodash';
+import { CliAction } from '../actions/cli';
+import { ActionTypes } from '../actions/types';
+import { Reducer } from 'redux';
 
 const INITIAL_STATE: AppState['cli'] = {
   command: '',
@@ -8,21 +10,21 @@ const INITIAL_STATE: AppState['cli'] = {
   history: [],
 };
 
-export const cli = (state = INITIAL_STATE, action) => {
-  if (action.type === actions.CLI_COMMAND_SET) {
+export const cli: Reducer<AppState['cli'], CliAction> = (state = INITIAL_STATE, action) => {
+  if (action.type === ActionTypes.CliCommandSet) {
     return { ...state, command: action.payload.command };
   }
 
-  if (action.type === actions.CLI_LOADING_SET) {
+  if (action.type === ActionTypes.CliLoadingSet) {
     return { ...state, loading: action.payload.loading };
   }
 
-  if (action.type === actions.CLI_RESULT_SET) {
+  if (action.type === ActionTypes.CliResultSet) {
     return { ...state, result: action.payload.result };
   }
 
-  if (action.type === actions.CLI_HISTORY_ADD) {
-    return { ...state, history: uniq([action.command, ...state.history]) };
+  if (action.type === ActionTypes.CliHistoryAdd) {
+    return { ...state, history: uniq([action.payload.command, ...state.history]) };
   }
 
   return state;
