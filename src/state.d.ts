@@ -23,6 +23,7 @@ interface L2OnCurrentPrice {
 }
 
 interface L2OnCurrentPrices {
+  id: number;
   name: string;
   sell: L2OnCurrentPrice[];
   buy: L2OnCurrentPrice[];

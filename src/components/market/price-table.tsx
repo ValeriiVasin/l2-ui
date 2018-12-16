@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { SFC } from 'react';
 
 import { PriceRow } from './price-row';
 
-export const PriceTable = ({ prices, limit, type, median }) => {
+export const PriceTable: SFC<{
+  limit: number;
+  prices: L2OnCurrentPrice[];
+  type: 'sell' | 'buy';
+  median: number | 'N/A';
+}> = ({ prices, limit, type, median }) => {
   const itemsLimit = limit ? limit : prices.length;
 
   const rows = prices.slice(0, itemsLimit).map((price, index) => {

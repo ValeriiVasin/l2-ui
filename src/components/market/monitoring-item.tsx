@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { SFC } from 'react';
 
 import { medianPrice } from '../../helpers';
 import { PriceTable } from './price-table';
 
-export const MonitoringItem = ({ item, basePrice, expanded, toggle }) => {
+export const MonitoringItem: SFC<{
+  item: L2OnCurrentPrices;
+  basePrice: number;
+  expanded: boolean;
+  toggle: (id: number) => void;
+}> = ({ item, basePrice, expanded, toggle }) => {
   if (!item.buy) {
     item.buy = [];
   }
