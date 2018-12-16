@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { HashRouter as Router, Link, Route } from 'react-router-dom';
 import { applyMiddleware, compose, createStore } from 'redux';
-import * as persistState from 'redux-localstorage';
+import persistState from 'redux-localstorage';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 

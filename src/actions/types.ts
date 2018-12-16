@@ -34,4 +34,5 @@ export enum ActionTypes {
   MarketFilterSet = 'MARKET_FILTER_SET',
   MarketItemToggle = 'MARKET_ITEM_TOGGLE',
   MarketItemsToggle = 'MARKET_ITEMS_TOGGLE',
+  MarketToggleActiveOnly = 'MARKET_TOGGLE_ACTIVE_ONLY',
 }

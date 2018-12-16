@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { SFC } from 'react';
 import { connect } from 'react-redux';
 
-import { toggleItems } from '../../actions/market';
+import { toggleItems, MarketAsyncActions, toggleActive } from '../../actions/market';
+import { AnyAction, bindActionCreators } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 
-export const MarketControlsComponent = ({ isActiveOnly, handleActiveToggle, handleToggle }) => {
+interface StateProps {
+  isActiveOnly: boolean;
+}
+
+interface DispatchProps {
+  handleActiveToggle: (value: boolean) => void;
+  handleToggle: (value: boolean) => void;
+}
+
+export const MarketControlsComponent: SFC<StateProps & DispatchProps> = ({
+  isActiveOnly,
+  handleActiveToggle,
+  handleToggle,
+}) => {
   return (
     <div>
       <a
@@ -35,21 +50,20 @@ export const MarketControlsComponent = ({ isActiveOnly, handleActiveToggle, hand
   );
 };
 
-const mapStateToProps = (state: AppState) => {
+const mapStateToProps = (state: AppState): StateProps => {
   return {
     isActiveOnly: true,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  handleToggle(value: boolean) {
-    dispatch(toggleItems(value));
-  },
-
-  handleActiveToggle(value: boolean) {
-    // console.log('handle active toggle', value);
-  },
-});
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, void, AnyAction>): DispatchProps =>
+  bindActionCreators(
+    {
+      handleToggle: toggleItems,
+      handleActiveToggle: toggleActive,
+    },
+    dispatch,
+  );
 
 export const MarketControlsContainer = connect(
   mapStateToProps,
