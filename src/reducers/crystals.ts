@@ -1,12 +1,8 @@
-import {
-  CRYSTALS_INTEREST_SET,
-  CRYSTALS_ITEMS_SET,
-  CRYSTALS_LOADING_TOGGLE,
-  CRYSTALS_PRICE_SET,
-  CRYSTALS_TEXT_SET,
-} from '../actions/types';
+import { ActionTypes } from '../actions/types';
+import { Reducer } from 'redux';
+import { CrystalsActions } from '../actions/crystals';
 
-const INITIAL_STATE: CrystalsAppState = {
+const INITIAL_STATE: AppState['crystals'] = {
   loading: false,
   interest: 5,
   price: {
@@ -18,24 +14,27 @@ const INITIAL_STATE: CrystalsAppState = {
   items: [],
 };
 
-export const crystals = (state = INITIAL_STATE, action) => {
-  if (action.type === CRYSTALS_ITEMS_SET) {
+export const crystals: Reducer<AppState['crystals'], CrystalsActions> = (
+  state = INITIAL_STATE,
+  action,
+) => {
+  if (action.type === ActionTypes.CrystalsItemsSet) {
     return { ...state, items: action.payload.items };
   }
 
-  if (action.type === CRYSTALS_LOADING_TOGGLE) {
+  if (action.type === ActionTypes.CrystalsLoadingToggle) {
     return { ...state, loading: action.payload.value };
   }
 
-  if (action.type === CRYSTALS_TEXT_SET) {
+  if (action.type === ActionTypes.CrystalsTextSet) {
     return { ...state, text: action.payload.text };
   }
 
-  if (action.type === CRYSTALS_INTEREST_SET) {
+  if (action.type === ActionTypes.CrystalsInterestSet) {
     return { ...state, interest: action.payload.interest };
   }
 
-  if (action.type === CRYSTALS_PRICE_SET) {
+  if (action.type === ActionTypes.CrystalsPriceSet) {
     return {
       ...state,
       price: { ...state.price, [action.payload.rank]: action.payload.price },
