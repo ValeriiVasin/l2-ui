@@ -1,7 +1,11 @@
-import * as firebase from 'firebase';
-import * as once from 'lodash/once';
+import firebase from 'firebase';
+import { once } from 'lodash';
 
-import { FIREBASE_LOADED_SET, FIREBASE_VALUES_SET } from './types';
+import { ActionTypes } from './types';
+import { Action, AnyAction } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+
+export type FirebaseActions = SetValuesAction | SetLoadedAction;
 
 const connect = once(() => {
   // Initialize Firebase
@@ -16,16 +20,22 @@ const connect = once(() => {
   firebase.initializeApp(config);
 });
 
-const setFirebaseValues = values => {
+interface SetValuesAction extends Action<ActionTypes.FirebaseValuesSet> {
+  values: AppState['firebase']['values'];
+}
+
+const setFirebaseValues = (values: AppState['firebase']['values']): SetValuesAction => {
   return {
-    type: FIREBASE_VALUES_SET,
+    type: ActionTypes.FirebaseValuesSet,
     values,
   };
 };
 
-const setLoaded = () => ({ type: FIREBASE_LOADED_SET });
+interface SetLoadedAction extends Action<ActionTypes.FirebaseLoadedSet> {}
 
-export const connectToFirebase = () => dispatch => {
+const setLoaded = (): SetLoadedAction => ({ type: ActionTypes.FirebaseLoadedSet });
+
+export const connectToFirebase = (): ThunkAction<void, AppState, void, AnyAction> => dispatch => {
   connect();
 
   firebase

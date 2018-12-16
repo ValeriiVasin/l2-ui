@@ -1,7 +1,9 @@
 import { pickBy } from 'lodash';
 import { medianPrice } from '../helpers';
 
-import { FIREBASE_LOADED_SET, FIREBASE_VALUES_SET } from '../actions/types';
+import { ActionTypes } from '../actions/types';
+import { FirebaseActions } from '../actions/firebase';
+import { Reducer } from 'redux';
 
 const INITIAL_STATE: AppState['firebase'] = {
   loaded: false,
@@ -15,15 +17,19 @@ const INITIAL_STATE: AppState['firebase'] = {
     updates: {
       l2on: '',
     },
+    basePrices: {},
   },
 };
 
-export const firebase = (state = INITIAL_STATE, action) => {
-  if (action.type === FIREBASE_VALUES_SET) {
+export const firebase: Reducer<AppState['firebase'], FirebaseActions> = (
+  state = INITIAL_STATE,
+  action,
+) => {
+  if (action.type === ActionTypes.FirebaseValuesSet) {
     return { ...state, values: action.values };
   }
 
-  if (action.type === FIREBASE_LOADED_SET) {
+  if (action.type === ActionTypes.FirebaseLoadedSet) {
     return { ...state, loaded: true };
   }
 
@@ -31,7 +37,7 @@ export const firebase = (state = INITIAL_STATE, action) => {
 };
 
 // selectors
-export const isLoading = state => {
+export const isLoading = (state: AppState) => {
   return !state.firebase.loaded;
 };
 
@@ -71,7 +77,7 @@ export const getFilteredL2OnPrices = (state: AppState) => {
   return pickBy(prices, (price: L2OnCurrentPrices) => names.indexOf(price.name) !== -1);
 };
 
-export const getBasePrices = state => {
+export const getBasePrices = (state: AppState) => {
   if (isLoading(state)) {
     return {};
   }

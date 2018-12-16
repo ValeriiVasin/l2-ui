@@ -42,7 +42,7 @@ interface CrystalsAppState {
     B: number;
   };
   text: string;
-  items: Array<ItemCrystalsInfo>,
+  items: Array<ItemCrystalsInfo>;
 }
 
 type CrystalRank = 'A' | 'B' | 'C' | 'D';
@@ -81,7 +81,11 @@ interface AppState {
 
       updates: {
         l2on: string;
-      }
+      };
+
+      basePrices: {
+        [name: string]: number;
+      };
     };
   };
 
@@ -89,6 +93,6 @@ interface AppState {
     filter: L2OnConfigFilterType;
     expandedItems: {
       [id: string]: boolean;
-    }
-  }
+    };
+  };
 }
