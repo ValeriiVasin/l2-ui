@@ -62,14 +62,10 @@ export const executeCommand = (): ExecuteCommandAction => (dispatch, getState) =
 
   $.ajax({
     url: getAPIPath('/cli'),
-    dataType: 'jsonp',
-    data: {
-      format: 'jsonp',
-      command,
-    },
+    data: { command },
   })
-    .then(({ response }) => {
-      dispatch(setResult(response));
+    .then(response => {
+      dispatch(setResult(response.result));
       dispatch(setLoading(false));
       dispatch(addHistory(command));
     })

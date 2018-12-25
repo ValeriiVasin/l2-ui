@@ -49,7 +49,9 @@ function isLocalhost() {
 }
 
 export function getAPIPath(path: string) {
-  const API_BASE_PATH = isLocalhost() ? 'http://localhost:3011' : 'https://l2.valeriivasin.com';
+  const API_BASE_PATH = isLocalhost()
+    ? 'http://localhost:3011'
+    : 'https://us-central1-l2-parser.cloudfunctions.net/api';
 
   return path.startsWith('/') ? `${API_BASE_PATH}${path}` : `${API_BASE_PATH}/${path}`;
 }
